@@ -22,8 +22,8 @@ export function pickRandomDate() {
 
   const currentDate = new Date();
   const weakOffset = 1000 * 60 * 60 * 24 * 7;
-  const minTime = currentDate - weakOffset;
-  const maxTime = currentDate + weakOffset;
+  const minTime = currentDate.getTime() - weakOffset;
+  const maxTime = currentDate.getTime() + weakOffset;
   const randomTime = generateRandomInt(minTime, maxTime);
   return new Date(randomTime);
 }
