@@ -61,7 +61,7 @@ export const createTaskEditTemplate = (task = {}) => {
     color = Color.BLACK,
     description = ``,
     dueDate = null,
-    repeating = {
+    repeatingDays = {
       mo: false,
       tu: false,
       we: false,
@@ -77,10 +77,10 @@ export const createTaskEditTemplate = (task = {}) => {
     : ``;
   const dateTemplate = createTaskEditDateTemplate(dueDate);
 
-  const repeatingClassName = isTaskRepeating(repeating)
+  const repeatingClassName = isTaskRepeating(repeatingDays)
     ? `card--repeat`
     : ``;
-  const repeatingTemplate = createTaskEditRepeatingTemplate(repeating);
+  const repeatingTemplate = createTaskEditRepeatingTemplate(repeatingDays);
 
   const colorsTemplate = createTaskEditColorsTemplate(color);
 
