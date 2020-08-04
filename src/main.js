@@ -7,7 +7,7 @@ import {createLoadMoreButtonTemplate} from './view/load-more-button.js';
 import {generateRandomTask} from './mocks/task.js';
 import {generateFilter} from './mocks/filter.js';
 
-const TASK_COUNT = 4;
+const TASK_COUNT = 20;
 const tasks = new Array(TASK_COUNT).fill().map(generateRandomTask);
 const filters = generateFilter(tasks);
 
