@@ -1,18 +1,49 @@
-export const createTaskTemplate = () => {
+import {isTaskRepeating, humanizeTaskDueDate, isTaskExpired} from '../utils.js';
+
+export const createTaskTemplate = (task) => {
+  const {description, dueDate, repeatingDays, color, isFavorite, isArchive} = task;
+
+  const repeatClass = isTaskRepeating(repeatingDays)
+    ? `card--repeat`
+    : ``;
+
+  const deadlineClass = isTaskExpired(dueDate)
+    ? `card--deadline`
+    : ``;
+
+  const archiveClass = isArchive
+    ? `card__btn--archive card__btn--disabled`
+    : `card__btn--archive`;
+
+  const favoriteClass = isFavorite
+    ? `card__btn--favorites card__btn--disabled`
+    : `card__btn--favorites`;
+
+  const deadlineElement = dueDate !== null
+    ? `<div class="card__dates">
+        <div class="card__date-deadline">
+          <p class="card__input-deadline-wrap">
+            <span class="card__date">${humanizeTaskDueDate(dueDate)}</span>
+          </p>
+        </div>
+      </div>`
+    : ``;
+
+
   return (
-    `<article class="card card--black">
+    `<article class="card card--${color} ${deadlineClass}  ${repeatClass}">
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">
             <button type="button" class="card__btn card__btn--edit">
               edit
             </button>
-            <button type="button" class="card__btn card__btn--archive">
+            <button type="button" class="card__btn ${archiveClass}">
               archive
             </button>
             <button
               type="button"
-              class="card__btn card__btn--favorites"
+              class="card__btn ${favoriteClass}"
             >
               favorites
             </button>
@@ -25,18 +56,12 @@ export const createTaskTemplate = () => {
           </div>
 
           <div class="card__textarea-wrap">
-            <p class="card__text">Example default task with default color.</p>
+            <p class="card__text">${description}</p>
           </div>
 
           <div class="card__settings">
             <div class="card__details">
-              <div class="card__dates">
-                <div class="card__date-deadline">
-                  <p class="card__input-deadline-wrap">
-                    <span class="card__date">23 September</span>
-                  </p>
-                </div>
-              </div>
+              ${deadlineElement}
             </div>
           </div>
         </div>

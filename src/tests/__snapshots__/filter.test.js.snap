@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task rendering 1`] = `
+"<section class=\\"main__filter filter container\\">
+    <input
+      type=\\"radio\\"
+      id=\\"filter__all\\"
+      class=\\"filter__input visually-hidden\\"
+      name=\\"filter\\"
+      checked
+      
+    />
+    <label for=\\"filter__all\\" class=\\"filter__label\\">
+      all <span class=\\"filter__all-count\\">1</span></label
+    ><input
+      type=\\"radio\\"
+      id=\\"filter__archive\\"
+      class=\\"filter__input visually-hidden\\"
+      name=\\"filter\\"
+      
+      
+    />
+    <label for=\\"filter__archive\\" class=\\"filter__label\\">
+      archive <span class=\\"filter__archive-count\\">2</span></label
+    >
+  </section>"
+`;
