@@ -1,4 +1,4 @@
-import {Color} from "./const";
+import {Color} from './const';
 
 export type AnyType = string | number | boolean | symbol | undefined | void | null | Record<string, unknown>;
 

@@ -1,4 +1,4 @@
-import {RepeatingDays, AnyType} from "./types";
+import {RepeatingDays, AnyType} from './types';
 
 const generateRandomInt = (min: number, max: number): number => {
   const rand = min - 0.5 + Math.random() * (max - min + 1);
