@@ -5,3 +5,8 @@ export const Color = {
   GREEN: `green`,
   PINK: `pink`,
 };
+
+export const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
