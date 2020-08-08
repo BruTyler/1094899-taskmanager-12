@@ -1,4 +1,4 @@
-import {createBoardTemplate} from '../view/board';
+import {createBoardTemplate} from '../view/board.js';
 
 it(`Board rendering`, () => {
   const generatedBoard = createBoardTemplate();
