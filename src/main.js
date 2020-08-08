@@ -4,8 +4,8 @@ import {createBoardTemplate} from './view/board.js';
 import {createTaskTemplate} from './view/task.js';
 import {createTaskEditTemplate} from './view/task-edit.js';
 import {createLoadMoreButtonTemplate} from './view/load-more-button.js';
-import {generateRandomTask} from './mocks/task.js';
-import {generateFilter} from './mocks/filter.js';
+import {generateRandomTask} from './mocks/task.ts';
+import {generateFilter} from './mocks/filter.ts';
 
 const TASK_COUNT = 20;
 const TASK_COUNT_PER_STEP = 8;

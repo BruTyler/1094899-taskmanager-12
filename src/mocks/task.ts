@@ -1,10 +1,11 @@
-import {Color} from '../const.ts';
-import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils.js';
+import {Color} from '../const';
+import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils';
+import {RepeatingDays, Task} from '../types';
 
 const descriptions = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
 const colors = Object.values(Color);
 
-const generateRepeatingDays = (dueDate) => {
+const generateRepeatingDays = (dueDate: null | Date): RepeatingDays => {
   return {
     mo: false,
     tu: false,
@@ -18,7 +19,7 @@ const generateRepeatingDays = (dueDate) => {
   };
 };
 
-export function generateRandomTask() {
+export function generateRandomTask(): Task {
   const dueDate = pickRandomDate();
 
   const task = {
