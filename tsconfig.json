@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./public",
+    "sourceMap": true,
+    "module": "ES6",
+    "target": "es2016",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom"],
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules",
+    "public"
+  ]
+}

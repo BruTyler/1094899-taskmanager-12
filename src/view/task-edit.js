@@ -1,4 +1,4 @@
-import {Color} from '../const.js';
+import {Color} from '../const.ts';
 import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate} from '../utils.js';
 
 const createTaskEditDateTemplate = (dueDate) => {

@@ -1,2 +1,5 @@
 webpack.config.js
 babel.config.js
+tsconfig.js
+jest.config.cjs
+.babelrc

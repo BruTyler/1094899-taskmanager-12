@@ -1,4 +1,4 @@
-import {Color} from '../const.js';
+import {Color} from '../const.ts';
 import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils.js';
 
 const descriptions = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];

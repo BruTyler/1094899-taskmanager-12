@@ -11,5 +11,16 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     watchContentBase: true,
-  }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(tsx|ts)?$/,
+        loader: `ts-loader`
+      }
+    ],
+  },
+  resolve: {
+    extensions: [`.ts`, `.js`, `json`]
+  },
 };

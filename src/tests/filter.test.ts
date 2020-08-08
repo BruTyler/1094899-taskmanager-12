@@ -1,4 +1,4 @@
-import {createFilterTemplate} from '../view/filter.js';
+import {createFilterTemplate} from '../view/filter';
 
 it(`Task rendering`, () => {
   const filterItems = [
