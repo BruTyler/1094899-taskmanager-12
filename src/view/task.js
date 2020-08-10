@@ -29,7 +29,6 @@ const createTaskTemplate = (task) => {
       </div>`
     : ``;
 
-
   return (
     `<article class="card card--${color} ${deadlineClass}  ${repeatClass}">
       <div class="card__form">
