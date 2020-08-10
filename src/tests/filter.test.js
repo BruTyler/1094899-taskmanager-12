@@ -1,12 +1,12 @@
-import {createFilterTemplate} from '../view/filter.js';
+import FilterView from '../view/filter.js';
 
-it(`Task rendering`, () => {
+it(`Filter rendering`, () => {
   const filterItems = [
     {title: `all`, count: 1},
     {title: `archive`, count: 2}
   ];
 
-  const generatedBoard = createFilterTemplate(filterItems);
+  const generatedTree = new FilterView(filterItems).getTemplate();
 
-  expect(generatedBoard).toMatchSnapshot();
+  expect(generatedTree).toMatchSnapshot();
 });

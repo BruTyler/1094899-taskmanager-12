@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Task rendering 1`] = `
+exports[`Filter rendering 1`] = `
 "<section class=\\"main__filter filter container\\">
     <input
       type=\\"radio\\"

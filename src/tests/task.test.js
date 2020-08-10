@@ -19,7 +19,7 @@ it(`Task rendering`, () => {
     isArchive: false,
   };
 
-  const generatedBoard = createTaskTemplate(task);
+  const generatedTree = createTaskTemplate(task);
 
-  expect(generatedBoard).toMatchSnapshot();
+  expect(generatedTree).toMatchSnapshot();
 });
