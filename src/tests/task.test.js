@@ -1,4 +1,4 @@
-import {createTaskTemplate} from '../view/task.js';
+import TaskView from '../view/task.js';
 import {Color} from '../const.js';
 
 it(`Task rendering`, () => {
@@ -19,7 +19,7 @@ it(`Task rendering`, () => {
     isArchive: false,
   };
 
-  const generatedTree = createTaskTemplate(task);
+  const generatedTree = new TaskView(task).getTemplate();
 
   expect(generatedTree).toMatchSnapshot();
 });
