@@ -1,23 +1,24 @@
-import {isTaskExpired, isTaskRepeating, isTaskExpiringToday} from "../utils.js";
+import {isTaskExpired, isTaskRepeating, isTaskExpiringToday} from '../utils';
+import {Task, Filter} from '../types';
 
 const taskToFilterMap = {
-  all: (tasks) => tasks.filter((task) => !task.isArchive).length,
-  overdue: (tasks) => tasks
+  all: (tasks: Array<Task>) => tasks.filter((task) => !task.isArchive).length,
+  overdue: (tasks: Array<Task>) => tasks
     .filter((task) => !task.isArchive)
     .filter((task) => isTaskExpired(task.dueDate)).length,
-  today: (tasks) => tasks
+  today: (tasks: Array<Task>) => tasks
     .filter((task) => !task.isArchive)
     .filter((task) => isTaskExpiringToday(task.dueDate)).length,
-  favorites: (tasks) => tasks
+  favorites: (tasks: Array<Task>) => tasks
     .filter((task) => !task.isArchive)
     .filter((task) => task.isFavorite).length,
-  repeating: (tasks) => tasks
+  repeating: (tasks: Array<Task>) => tasks
     .filter((task) => !task.isArchive)
     .filter((task) => isTaskRepeating(task.repeatingDays)).length,
-  archive: (tasks) => tasks.filter((task) => task.isArchive).length,
+  archive: (tasks: Array<Task>) => tasks.filter((task) => task.isArchive).length,
 };
 
-export const generateFilter = (tasks) => {
+export const generateFilter = (tasks: Array<Task>): Array<Filter> => {
   return Object.entries(taskToFilterMap).map(([filterName, countTasks]) =>
     ({
       title: filterName,

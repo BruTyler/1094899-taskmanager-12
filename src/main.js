@@ -6,10 +6,10 @@ import LoadMoreButtonView from './view/load-more-button.js';
 import BoardView from './view/board.js';
 import SortView from './view/sort.js';
 import TaskListView from './view/task-list.js';
-import {generateRandomTask} from './mocks/task.js';
-import {generateFilter} from './mocks/filter.js';
-import {render} from './utils.js';
-import {RenderPosition} from './const.js';
+import {generateRandomTask} from './mocks/task.ts';
+import {generateFilter} from './mocks/filter.ts';
+import {render} from './utils.ts';
+import {RenderPosition} from './const.ts';
 
 const TASK_COUNT = 20;
 const TASK_COUNT_PER_STEP = 8;

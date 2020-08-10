@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../utils';
 
 const createFilterItemTemplate = (filter, isChecked) => {
   const {title, count} = filter;

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./public",
+    "sourceMap": true,
+  },
+  "exclude": [
+    "node_modules",
+    "public"
+  ]
+}
