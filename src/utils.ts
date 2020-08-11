@@ -1,4 +1,4 @@
-import {RepeatingDays, AnyType} from './types';
+import {RepeatingDays} from './types';
 import {RenderPosition} from './const';
 
 const generateRandomInt = (min: number, max: number): number => {
@@ -6,7 +6,7 @@ const generateRandomInt = (min: number, max: number): number => {
   return Math.round(rand);
 };
 
-export const pickRandomElement = <T extends AnyType> (elements: Array<T>): T => {
+export const pickRandomElement = <T extends any> (elements: Array<T>): T => {
   if (elements === undefined || elements === null || elements.length === 0) {
     throw new Error(`Incorrect array`);
   }
