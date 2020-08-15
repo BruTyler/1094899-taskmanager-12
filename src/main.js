@@ -9,7 +9,7 @@ import TaskListView from './view/task-list.js';
 import NoTaskView from './view/no-task.js';
 import {generateRandomTask} from './mocks/task.ts';
 import {generateFilter} from './mocks/filter.ts';
-import {render} from './utils.ts';
+import {render} from './utils/render.ts';
 import {RenderPosition} from './const.ts';
 
 const TASK_COUNT = 22;

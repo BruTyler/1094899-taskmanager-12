@@ -1,4 +1,4 @@
-import FilterView from '../view/filter.js';
+import FilterView from '../view/filter';
 
 it(`Filter rendering`, () => {
   const filterItems = [

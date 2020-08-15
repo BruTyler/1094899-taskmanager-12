@@ -1,5 +1,5 @@
 import {Color} from '../const';
-import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils';
+import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils/common';
 import {RepeatingDays, Task} from '../types';
 
 const descriptions = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
