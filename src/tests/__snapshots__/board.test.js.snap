@@ -1,0 +1,1236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board-Presenter rendering 1`] = `
+<div
+  id="container-template"
+>
+  <section
+    class="board container"
+  >
+    <div
+      class="board__filter-list"
+    >
+      
+    
+      <a
+        class="board__filter"
+        href="#"
+      >
+        SORT BY DEFAULT
+      </a>
+      
+    
+      <a
+        class="board__filter"
+        href="#"
+      >
+        SORT BY DATE up
+      </a>
+      
+    
+      <a
+        class="board__filter"
+        href="#"
+      >
+        SORT BY DATE down
+      </a>
+      
+  
+    </div>
+    <div
+      class="board__tasks"
+    >
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+      <article
+        class="card card--black   "
+      >
+        
+      
+        <div
+          class="card__form"
+        >
+          
+        
+          <div
+            class="card__inner"
+          >
+            
+          
+            <div
+              class="card__control"
+            >
+              
+            
+              <button
+                class="card__btn card__btn--edit"
+                type="button"
+              >
+                
+              edit
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--archive"
+                type="button"
+              >
+                
+              archive
+            
+              </button>
+              
+            
+              <button
+                class="card__btn card__btn--favorites card__btn--disabled"
+                type="button"
+              >
+                
+              favorites
+            
+              </button>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__color-bar"
+            >
+              
+            
+              <svg
+                class="card__color-bar-wave"
+                height="10"
+                width="100%"
+              >
+                
+              
+                <use
+                  xlink:href="#wave"
+                />
+                
+            
+              </svg>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__textarea-wrap"
+            >
+              
+            
+              <p
+                class="card__text"
+              >
+                some description
+              </p>
+              
+          
+            </div>
+            
+
+          
+            <div
+              class="card__settings"
+            >
+              
+            
+              <div
+                class="card__details"
+              >
+                
+              
+                <div
+                  class="card__dates"
+                >
+                  
+        
+                  <div
+                    class="card__date-deadline"
+                  >
+                    
+          
+                    <p
+                      class="card__input-deadline-wrap"
+                    >
+                      
+            
+                      <span
+                        class="card__date"
+                      >
+                        September 4
+                      </span>
+                      
+          
+                    </p>
+                    
+        
+                  </div>
+                  
+      
+                </div>
+                
+            
+              </div>
+              
+          
+            </div>
+            
+        
+          </div>
+          
+      
+        </div>
+        
+    
+      </article>
+    </div>
+    <button
+      class="load-more"
+      type="button"
+    >
+      load more
+    </button>
+  </section>
+</div>
+`;
