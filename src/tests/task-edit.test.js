@@ -1,5 +1,5 @@
-import TaskEditView from '../view/task-edit.js';
-import {Color} from '../const.ts';
+import TaskEditView from '../view/task-edit';
+import {Color} from '../const';
 
 it(`TaskEditor rendering`, () => {
   const task = {

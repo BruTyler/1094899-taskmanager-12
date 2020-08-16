@@ -1,5 +1,5 @@
-import TaskView from '../view/task.js';
-import {Color} from '../const.ts';
+import TaskView from '../view/task';
+import {Color} from '../const';
 
 it(`Task rendering`, () => {
   const task = {
