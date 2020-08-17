@@ -1,19 +1,11 @@
 import TaskEditView from '../view/task-edit';
-import {Color} from '../const';
+import {Color, RepeatingDaysMap} from '../const';
 
 it(`TaskEditor rendering`, () => {
   const task = {
     description: `some description1`,
     dueDate: new Date(2020, 8, 4),
-    repeatingDays: {
-      mo: false,
-      tu: false,
-      we: false,
-      th: false,
-      fr: false,
-      sa: false,
-      su: true
-    },
+    repeatingMask: RepeatingDaysMap.su,
     color: Color.BLACK,
     isFavorite: true,
     isArchive: false,

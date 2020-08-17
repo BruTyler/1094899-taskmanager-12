@@ -1,4 +1,4 @@
-import {RepeatingDays, Task} from '../types';
+import {Task} from '../types';
 
 export const isTaskExpired = (dueDate: null | Date): boolean => {
   if (dueDate === null) {
@@ -18,10 +18,6 @@ export const isTaskExpiringToday = (dueDate: null | Date): boolean => {
   const currentDate = new Date();
 
   return currentDate.toDateString() === dueDate.toDateString();
-};
-
-export const isTaskRepeating = (repeating: RepeatingDays): boolean => {
-  return Object.values(repeating).includes(true);
 };
 
 export const humanizeTaskDueDate = (dueDate: Date): string => {

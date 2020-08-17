@@ -13,7 +13,7 @@ export interface RepeatingDays {
 export interface Task {
   description: string,
   dueDate: Date | null,
-  repeatingDays: RepeatingDays,
+  repeatingMask: number,
   color: Color,
   isFavorite: boolean,
   isArchive: boolean,
