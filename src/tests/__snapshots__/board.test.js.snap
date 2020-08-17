@@ -14,22 +14,25 @@ exports[`Board-Presenter rendering 1`] = `
     
       <a
         class="board__filter"
+        data-sort-type="DEFAULT"
         href="#"
       >
         SORT BY DEFAULT
       </a>
       
-    
+
       <a
         class="board__filter"
+        data-sort-type="DATE up"
         href="#"
       >
         SORT BY DATE up
       </a>
       
-    
+
       <a
         class="board__filter"
+        data-sort-type="DATE down"
         href="#"
       >
         SORT BY DATE down

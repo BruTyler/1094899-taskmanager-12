@@ -1,4 +1,4 @@
-import {RepeatingDays} from '../types';
+import {RepeatingDays, Task} from '../types';
 
 export const isTaskExpired = (dueDate: null | Date): boolean => {
   if (dueDate === null) {
@@ -26,4 +26,40 @@ export const isTaskRepeating = (repeating: RepeatingDays): boolean => {
 
 export const humanizeTaskDueDate = (dueDate: Date): string => {
   return dueDate.toLocaleString(`en-US`, {day: `numeric`, month: `long`});
+};
+
+const getWeightForNullDate = (dateA: Date | null, dateB: Date | null): number | null => {
+  if (dateA === null && dateB === null) {
+    return 0;
+  }
+
+  if (dateA === null) {
+    return 1;
+  }
+
+  if (dateB === null) {
+    return -1;
+  }
+
+  return null;
+};
+
+export const sortTaskUp = (taskA: Task, taskB: Task): number => {
+  const weight = getWeightForNullDate(taskA.dueDate, taskB.dueDate);
+
+  if (weight !== null) {
+    return weight;
+  }
+
+  return taskA.dueDate.getTime() - taskB.dueDate.getTime();
+};
+
+export const sortTaskDown = (taskA: Task, taskB: Task): number => {
+  const weight = getWeightForNullDate(taskA.dueDate, taskB.dueDate);
+
+  if (weight !== null) {
+    return weight;
+  }
+
+  return taskB.dueDate.getTime() - taskA.dueDate.getTime();
 };
