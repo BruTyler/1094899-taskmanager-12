@@ -28,3 +28,7 @@ export const pickRandomDate = (): null | Date => {
 
   return new Date(currentDate);
 };
+
+export const transformToStringId = (word: string): string => {
+  return word.replace(/\s/g, `-`).toLowerCase();
+};

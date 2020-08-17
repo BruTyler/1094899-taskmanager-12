@@ -10,3 +10,9 @@ export enum RenderPosition {
   AFTERBEGIN = `afterbegin`,
   BEFOREEND = `beforeend`
 }
+
+export enum SortType {
+  DEFAULT = `DEFAULT`,
+  DATE_UP = `DATE up`,
+  DATE_DOWN = `DATE down`
+}
