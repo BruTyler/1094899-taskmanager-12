@@ -1,10 +1,11 @@
 import AbstractView from './abstract';
-import {isTaskRepeating, humanizeTaskDueDate, isTaskExpired} from '../utils/task';
+import {humanizeTaskDueDate, isTaskExpired} from '../utils/task';
+import {isTaskRepeating} from '../utils/bitmap';
 
 const createTaskTemplate = (task) => {
-  const {description, dueDate, repeatingDays, color, isFavorite, isArchive} = task;
+  const {description, dueDate, repeatingMask, color, isFavorite, isArchive} = task;
 
-  const repeatClass = isTaskRepeating(repeatingDays)
+  const repeatClass = isTaskRepeating(repeatingMask)
     ? `card--repeat`
     : ``;
 
@@ -31,7 +32,7 @@ const createTaskTemplate = (task) => {
     : ``;
 
   return (
-    `<article class="card card--${color} ${deadlineClass}  ${repeatClass}">
+    `<article class="card card--${color} ${deadlineClass} ${repeatClass}">
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">

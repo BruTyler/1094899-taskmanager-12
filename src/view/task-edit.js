@@ -1,6 +1,7 @@
 import AbstractView from './abstract';
 import {Color} from '../const';
-import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate} from '../utils/task';
+import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
+import {getRepeatingDayNames, isTaskRepeating, isDayRepeating} from '../utils/bitmap';
 
 const BLANK_TASK = {
   color: Color.BLACK,
@@ -15,6 +16,7 @@ const BLANK_TASK = {
     sa: false,
     su: false
   },
+  repeatingDaysMask: 0,
   isArchive: false,
   isFavorite: false
 };
@@ -37,25 +39,29 @@ const createTaskEditDateTemplate = (dueDate) => {
   `;
 };
 
-const createTaskEditRepeatingTemplate = (repeating) => {
+const createTaskEditRepeatingTemplate = (repeatingMask) => {
+  const repeatingDayNames = getRepeatingDayNames();
+
   return `<button class="card__repeat-toggle" type="button">
-    repeat:<span class="card__repeat-status">${isTaskRepeating(repeating) ? `yes` : `no`}</span>
+    repeat:<span class="card__repeat-status">${isTaskRepeating(repeatingMask) ? `yes` : `no`}</span>
   </button>
-  ${isTaskRepeating(repeating) ? `<fieldset class="card__repeat-days">
-    <div class="card__repeat-days-inner">
-      ${Object.entries(repeating).map(([day, repeat]) => `<input
-        class="visually-hidden card__repeat-day-input"
-        type="checkbox"
-        id="repeat-${day}"
-        name="repeat"
-        value="${day}"
-        ${repeat ? `checked` : ``}
-      />
-      <label class="card__repeat-day" for="repeat-${day}"
-        >${day}</label
-      >`).join(``)}
-    </div>
-  </fieldset>` : ``}`;
+  ${isTaskRepeating(repeatingMask)
+    ? `<fieldset class="card__repeat-days">
+        <div class="card__repeat-days-inner">
+          ${repeatingDayNames.map((day) =>`<input
+            class="visually-hidden card__repeat-day-input"
+            type="checkbox"
+            id="repeat-${day}"
+            name="repeat"
+            value="${day}"
+            ${isDayRepeating(repeatingMask, day) ? `checked` : ``}
+          />
+          <label class="card__repeat-day" for="repeat-${day}"
+            >${day}</label
+          >`).join(``)}
+        </div>
+      </fieldset>`
+    : ``}`;
 };
 
 const createTaskEditColorsTemplate = (currentColor) => {
@@ -75,17 +81,17 @@ const createTaskEditColorsTemplate = (currentColor) => {
 };
 
 const createTaskEditTemplate = (task) => {
-  const {color, description, dueDate, repeatingDays} = task;
+  const {color, description, dueDate, repeatingMask} = task;
 
   const deadlineClassName = isTaskExpired(dueDate)
     ? `card--deadline`
     : ``;
   const dateTemplate = createTaskEditDateTemplate(dueDate);
 
-  const repeatingClassName = isTaskRepeating(repeatingDays)
+  const repeatingClassName = isTaskRepeating(repeatingMask)
     ? `card--repeat`
     : ``;
-  const repeatingTemplate = createTaskEditRepeatingTemplate(repeatingDays);
+  const repeatingTemplate = createTaskEditRepeatingTemplate(repeatingMask);
 
   const colorsTemplate = createTaskEditColorsTemplate(color);
 

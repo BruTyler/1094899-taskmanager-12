@@ -40,80 +40,80 @@ exports[`TaskEditor rendering 1`] = `
     repeat:<span class=\\"card__repeat-status\\">yes</span>
   </button>
   <fieldset class=\\"card__repeat-days\\">
-    <div class=\\"card__repeat-days-inner\\">
-      <input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-mo\\"
-        name=\\"repeat\\"
-        value=\\"mo\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-mo\\"
-        >mo</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-tu\\"
-        name=\\"repeat\\"
-        value=\\"tu\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-tu\\"
-        >tu</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-we\\"
-        name=\\"repeat\\"
-        value=\\"we\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-we\\"
-        >we</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-th\\"
-        name=\\"repeat\\"
-        value=\\"th\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-th\\"
-        >th</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-fr\\"
-        name=\\"repeat\\"
-        value=\\"fr\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-fr\\"
-        >fr</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-sa\\"
-        name=\\"repeat\\"
-        value=\\"sa\\"
-        
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-sa\\"
-        >sa</label
-      ><input
-        class=\\"visually-hidden card__repeat-day-input\\"
-        type=\\"checkbox\\"
-        id=\\"repeat-su\\"
-        name=\\"repeat\\"
-        value=\\"su\\"
-        checked
-      />
-      <label class=\\"card__repeat-day\\" for=\\"repeat-su\\"
-        >su</label
-      >
-    </div>
-  </fieldset>
+        <div class=\\"card__repeat-days-inner\\">
+          <input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-mo\\"
+            name=\\"repeat\\"
+            value=\\"mo\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-mo\\"
+            >mo</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-tu\\"
+            name=\\"repeat\\"
+            value=\\"tu\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-tu\\"
+            >tu</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-we\\"
+            name=\\"repeat\\"
+            value=\\"we\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-we\\"
+            >we</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-th\\"
+            name=\\"repeat\\"
+            value=\\"th\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-th\\"
+            >th</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-fr\\"
+            name=\\"repeat\\"
+            value=\\"fr\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-fr\\"
+            >fr</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-sa\\"
+            name=\\"repeat\\"
+            value=\\"sa\\"
+            
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-sa\\"
+            >sa</label
+          ><input
+            class=\\"visually-hidden card__repeat-day-input\\"
+            type=\\"checkbox\\"
+            id=\\"repeat-su\\"
+            name=\\"repeat\\"
+            value=\\"su\\"
+            checked
+          />
+          <label class=\\"card__repeat-day\\" for=\\"repeat-su\\"
+            >su</label
+          >
+        </div>
+      </fieldset>
             </div>
           </div>
           <div class=\\"card__colors-inner\\">
