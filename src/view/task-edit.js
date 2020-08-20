@@ -2,7 +2,7 @@ import {nanoid} from 'nanoid';
 import AbstractView from './abstract';
 import {Color} from '../const';
 import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
-import {getRepeatingDayNames, isTaskRepeating, isDayRepeating} from '../utils/bitmap';
+import {getRepeatingDayNames, isTaskRepeating, isDayRepeating, updateRepeatingMask} from '../utils/bitmap';
 import {extend} from '../utils/common';
 
 const BLANK_TASK = {
@@ -89,6 +89,8 @@ const createTaskEditTemplate = (data) => {
 
   const colorsTemplate = createTaskEditColorsTemplate(color);
 
+  const isSubmitDisabled = isRepeating && !isTaskRepeating(repeatingMask);
+
   return `<article class="card card--edit card--${color} ${deadlineClassName} ${repeatingClassName}">
     <form class="card__form" method="get">
       <div class="card__inner">
@@ -121,7 +123,7 @@ const createTaskEditTemplate = (data) => {
           </div>
         </div>
         <div class="card__status-btns">
-          <button class="card__save" type="submit">save</button>
+          <button class="card__save" type="submit" ${isSubmitDisabled ? `disabled` : ``}>save</button>
           <button class="card__delete" type="button">delete</button>
         </div>
       </div>
@@ -138,6 +140,8 @@ export default class TaskEdit extends AbstractView {
     this._descriptionInputHandler = this._descriptionInputHandler.bind(this);
     this._dueDateToggleHandler = this._dueDateToggleHandler.bind(this);
     this._repeatingToggleHandler = this._repeatingToggleHandler.bind(this);
+    this._repeatingChangeHandler = this._repeatingChangeHandler.bind(this);
+    this._colorChangeHandler = this._colorChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
@@ -188,6 +192,15 @@ export default class TaskEdit extends AbstractView {
     this.getElement()
       .querySelector(`.card__text`)
       .addEventListener(`input`, this._descriptionInputHandler);
+    this.getElement()
+      .querySelector(`.card__colors-wrap`)
+      .addEventListener(`change`, this._colorChangeHandler);
+
+    if (this._data.isRepeating) {
+      this.getElement()
+        .querySelector(`.card__repeat-days-inner`)
+        .addEventListener(`change`, this._repeatingChangeHandler);
+    }
   }
 
   _descriptionInputHandler(evt) {
@@ -200,14 +213,30 @@ export default class TaskEdit extends AbstractView {
   _dueDateToggleHandler(evt) {
     evt.preventDefault();
     this.updateData({
-      isDueDate: !this._data.isDueDate
+      isDueDate: !this._data.isDueDate,
+      isRepeating: !this._data.isDueDate && false
     });
   }
 
   _repeatingToggleHandler(evt) {
     evt.preventDefault();
     this.updateData({
-      isRepeating: !this._data.isRepeating
+      isRepeating: !this._data.isRepeating,
+      isDueDate: !this._data.isRepeating && false
+    });
+  }
+
+  _repeatingChangeHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      repeatingMask: updateRepeatingMask(this._data.repeatingMask, evt.target.value)
+    });
+  }
+
+  _colorChangeHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      color: evt.target.value
     });
   }
 
