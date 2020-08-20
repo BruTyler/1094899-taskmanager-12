@@ -1,16 +1,20 @@
 import TaskView from '../view/task';
 import TaskEditView from '../view/task-edit';
 import {render, replace, remove} from '../utils/render';
+import {extend} from '../utils/common';
 import {RenderPosition} from '../const';
 
 export default class Task {
-  constructor(taskListContainer) {
+  constructor(taskListContainer, changeData) {
     this._taskListContainer = taskListContainer;
+    this._changeData = changeData;
 
     this._taskComponent = null;
     this._taskEditComponent = null;
 
     this._handleEditClick = this._handleEditClick.bind(this);
+    this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
+    this._handleArchiveClick = this._handleArchiveClick.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
@@ -25,6 +29,8 @@ export default class Task {
     this._taskEditComponent = new TaskEditView(task);
 
     this._taskComponent.setEditClickHandler(this._handleEditClick);
+    this._taskComponent.setFavoriteClickHandler(this._handleFavoriteClick);
+    this._taskComponent.setArchiveClickHandler(this._handleArchiveClick);
     this._taskEditComponent.setFormSubmitHandler(this._handleFormSubmit);
 
     if (prevTaskComponent === null || prevTaskEditComponent === null) {
@@ -47,7 +53,6 @@ export default class Task {
   destroy() {
     remove(this._taskComponent);
     remove(this._taskEditComponent);
-
   }
 
   _replaceCardToForm() {
@@ -71,7 +76,20 @@ export default class Task {
     this._replaceCardToForm();
   }
 
-  _handleFormSubmit() {
+  _handleFavoriteClick() {
+    const updatedProperty = {isFavorite: !this._task.isFavorite};
+    const updatedTask = extend(this._task, updatedProperty);
+    this._changeData(updatedTask);
+  }
+
+  _handleArchiveClick() {
+    const updatedProperty = {isArchive: !this._task.isArchive};
+    const updatedTask = extend(this._task, updatedProperty);
+    this._changeData(updatedTask);
+  }
+
+  _handleFormSubmit(task) {
+    this._changeData(task);
     this._replaceFormToCard();
   }
 }

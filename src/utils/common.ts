@@ -45,3 +45,7 @@ export const updateItem = <O extends WithId<string>> (items: O[], update: O): O[
     ...items.slice(index + 1)
   ];
 };
+
+export const extend = <T extends Record<string, unknown>>(a: T, b: T): T => {
+  return Object.assign({}, a, b);
+};
