@@ -10,7 +10,11 @@ export interface RepeatingDays {
   su: boolean
 }
 
-export interface Task {
+export interface WithId<K=string | number> {
+  id: K,
+}
+
+export type Task = WithId<string> & {
   description: string,
   dueDate: Date | null,
   repeatingMask: number,

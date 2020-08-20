@@ -1,22 +1,15 @@
+import {nanoid} from 'nanoid';
 import AbstractView from './abstract';
 import {Color} from '../const';
 import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
 import {getRepeatingDayNames, isTaskRepeating, isDayRepeating} from '../utils/bitmap';
 
 const BLANK_TASK = {
+  id: nanoid(5),
   color: Color.BLACK,
   description: ``,
   dueDate: null,
-  repeatingDays: {
-    mo: false,
-    tu: false,
-    we: false,
-    th: false,
-    fr: false,
-    sa: false,
-    su: false
-  },
-  repeatingDaysMask: 0,
+  repeatingMask: 0,
   isArchive: false,
   isFavorite: false
 };

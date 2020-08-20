@@ -4,6 +4,7 @@ import {createElement} from '../utils/render';
 
 it(`Board-Presenter rendering`, () => {
   const task = {
+    id: `id123`,
     description: `some description`,
     dueDate: new Date(2020, 8, 4),
     repeatingMask: 0,

@@ -1,3 +1,4 @@
+import {nanoid} from 'nanoid';
 import {Color, RepeatingDaysMap} from '../const';
 import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils/common';
 import {Task} from '../types';
@@ -17,6 +18,7 @@ export function generateRandomTask(): Task {
   const dueDate = pickRandomDate();
 
   const task = {
+    id: nanoid(5),
     description: pickRandomElement(descriptions),
     dueDate,
     repeatingMask: generateRepeatingDaysMask(dueDate),
