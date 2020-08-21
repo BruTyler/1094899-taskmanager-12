@@ -1,10 +1,11 @@
-import {nanoid} from 'nanoid';
 import {Color, RepeatingDaysMap} from '../const';
 import {pickRandomElement, pickRandomBool, pickRandomDate} from '../utils/common';
 import {Task} from '../types';
 
 const descriptions = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
 const colors = Object.values(Color);
+
+const generateId = (): number => Date.now() + parseInt((Math.random() * 10000).toString(), 10);
 
 const generateRepeatingDaysMask = (dueDate: null | Date): number => {
   const isSundayRepeating = dueDate !== null
@@ -18,7 +19,7 @@ export function generateRandomTask(): Task {
   const dueDate = pickRandomDate();
 
   const task = {
-    id: nanoid(5),
+    id: generateId(),
     description: pickRandomElement(descriptions),
     dueDate,
     repeatingMask: generateRepeatingDaysMask(dueDate),

@@ -1,4 +1,3 @@
-import {nanoid} from 'nanoid';
 import SmartView from './smart';
 import {Color} from '../const';
 import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
@@ -6,7 +5,7 @@ import {getRepeatingDayNames, isTaskRepeating, isDayRepeating, updateRepeatingMa
 import {extend} from '../utils/common';
 
 const BLANK_TASK = {
-  id: nanoid(5),
+  id: 0,
   color: Color.BLACK,
   description: ``,
   dueDate: null,

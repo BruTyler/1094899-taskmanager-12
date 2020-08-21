@@ -31,8 +31,7 @@ export const pickRandomDate = (): null | Date => {
   return new Date(currentDate);
 };
 
-
-export const updateItem = <O extends WithId<string>> (items: O[], update: O): O[] => {
+export const updateItem = <O extends WithId<number>> (items: O[], update: O): O[] => {
   const index = items.findIndex((item) => item.id === update.id);
 
   if (index === -1) {

@@ -14,7 +14,7 @@ export interface WithId<K=string | number> {
   id: K,
 }
 
-export type Task = WithId<string> & {
+export type Task = WithId<number> & {
   description: string,
   dueDate: Date | null,
   repeatingMask: number,
