@@ -28,7 +28,7 @@ const createTaskEditDateTemplate = (dueDate, isDueDate) => {
           type="text"
           placeholder=""
           name="date"
-          value="${dueDate !== null ? humanizeTaskDueDate(dueDate) : ``}"
+          value="${humanizeTaskDueDate(dueDate)}"
         />
       </label>
     </fieldset>` : ``}
@@ -169,8 +169,6 @@ export default class TaskEdit extends SmartView {
 
   _setDatepicker() {
     if (this._datepicker) {
-      // В случае обновления компонента удаляем вспомогательные DOM-элементы,
-      // которые создает flatpickr при инициализации
       this._datepicker.destroy();
       this._datepicker = null;
     }

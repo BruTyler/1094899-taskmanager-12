@@ -31,7 +31,7 @@ exports[`TaskEditor rendering 1`] = `
           type=\\"text\\"
           placeholder=\\"\\"
           name=\\"date\\"
-          value=\\"September 4\\"
+          value=\\"4 September\\"
         />
       </label>
     </fieldset>

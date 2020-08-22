@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {Task} from '../types';
 
 export const isTaskExpired = (dueDate: null | Date): boolean => {
@@ -21,7 +22,11 @@ export const isTaskExpiringToday = (dueDate: null | Date): boolean => {
 };
 
 export const humanizeTaskDueDate = (dueDate: Date): string => {
-  return dueDate.toLocaleString(`en-US`, {day: `numeric`, month: `long`});
+  if (!(dueDate instanceof Date)) {
+    return ``;
+  }
+
+  return moment(dueDate).format(`D MMMM`);
 };
 
 const getWeightForNullDate = (dateA: Date | null, dateB: Date | null): number | null => {
