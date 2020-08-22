@@ -10,6 +10,10 @@ export const isDayRepeating = (repeatingMask: number, dayName: string): boolean 
   return Boolean(repeatingMask & RepeatingDaysMap[dayName]);
 };
 
+export const updateRepeatingMask = (repeatingMask: number, dayName: string): number => {
+  return repeatingMask ^ RepeatingDaysMap[dayName];
+};
+
 export const getRepeatingDayNames = (): string[] => {
   return Object.keys(RepeatingDaysMap).filter((dayKey) => isNaN(Number(dayKey)));
 };

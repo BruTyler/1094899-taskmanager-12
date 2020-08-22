@@ -18,11 +18,11 @@ export enum SortType {
 }
 
 export enum RepeatingDaysMap {
-  mo = 1,
-  tu = 2,
-  we = 4,
-  th = 8,
-  fr = 16,
-  sa = 32,
-  su = 64
+  mo = 0b1,
+  tu = 0b10,
+  we = 0b100,
+  th = 0b1000,
+  fr = 0b10000,
+  sa = 0b100000,
+  su = 0b1000000
 }

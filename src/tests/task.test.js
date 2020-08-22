@@ -3,6 +3,7 @@ import {Color} from '../const';
 
 it(`Task rendering`, () => {
   const task = {
+    id: `123`,
     description: `some description`,
     dueDate: new Date(2020, 8, 4),
     repeatingMask: 0,

@@ -5,6 +5,8 @@ import {Task} from '../types';
 const descriptions = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
 const colors = Object.values(Color);
 
+const generateId = (): number => Date.now() + parseInt((Math.random() * 10000).toString(), 10);
+
 const generateRepeatingDaysMask = (dueDate: null | Date): number => {
   const isSundayRepeating = dueDate !== null
     ? pickRandomBool()
@@ -17,6 +19,7 @@ export function generateRandomTask(): Task {
   const dueDate = pickRandomDate();
 
   const task = {
+    id: generateId(),
     description: pickRandomElement(descriptions),
     dueDate,
     repeatingMask: generateRepeatingDaysMask(dueDate),

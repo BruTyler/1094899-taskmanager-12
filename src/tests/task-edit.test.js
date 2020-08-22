@@ -3,6 +3,7 @@ import {Color, RepeatingDaysMap} from '../const';
 
 it(`TaskEditor rendering`, () => {
   const task = {
+    id: `123`,
     description: `some description1`,
     dueDate: new Date(2020, 8, 4),
     repeatingMask: RepeatingDaysMap.su,
