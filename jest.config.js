@@ -10,4 +10,7 @@ module.exports = {
     `js`,
     `json`,
   ],
+  moduleNameMapper: {
+    "\\.(css)$": `identity-obj-proxy`,
+  }
 };
