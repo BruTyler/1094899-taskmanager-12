@@ -34,7 +34,7 @@ exports[`Task rendering 1`] = `
               <div class=\\"card__dates\\">
         <div class=\\"card__date-deadline\\">
           <p class=\\"card__input-deadline-wrap\\">
-            <span class=\\"card__date\\">September 4</span>
+            <span class=\\"card__date\\">4 September</span>
           </p>
         </div>
       </div>
