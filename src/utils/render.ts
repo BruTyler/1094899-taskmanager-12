@@ -54,6 +54,10 @@ export const replace = (newChild: HTMLElement | AbstractView, oldChild: HTMLElem
 };
 
 export const remove = (component: HTMLElement | AbstractView): void => {
+  if (component === null) {
+    return;
+  }
+
   if (!(component instanceof AbstractView)) {
     throw new Error(`Can remove only components`);
   }

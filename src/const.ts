@@ -26,3 +26,20 @@ export enum RepeatingDaysMap {
   sa = 0b100000,
   su = 0b1000000
 }
+
+export enum UserAction {
+  UPDATE_TASK = `UPDATE_TASK`,
+  ADD_TASK = `ADD_TASK`,
+  DELETE_TASK = `DELETE_TASK`
+}
+
+export enum UpdateType {
+  PATCH = `PATCH`,
+  MINOR = `MINOR`,
+  MAJOR = `MAJOR`
+}
+
+export enum TaskMode {
+  DEFAULT = `DEFAULT`,
+  EDITING = `EDITING`
+}

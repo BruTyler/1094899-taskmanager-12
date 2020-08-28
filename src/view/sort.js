@@ -1,10 +1,16 @@
 import AbstractView from './abstract';
 import {SortType} from '../const';
 
-const createSortTemplate = () => {
+const createSortTemplate = (currentSortType) => {
   const sortItemsTemplate = Object
     .values(SortType)
-    .map((sortValue) => `<a href="#" class="board__filter" data-sort-type="${sortValue}">SORT BY ${sortValue}</a>`)
+    .map((sortValue) =>
+      `<a href="#" 
+        class="board__filter ${currentSortType === sortValue ? `board__filter--active` : ``}" 
+        data-sort-type="${sortValue}"
+      >
+        SORT BY ${sortValue}
+      </a>`)
     .join(`\n`);
 
   return `<div class="board__filter-list">
@@ -13,14 +19,16 @@ const createSortTemplate = () => {
 };
 
 export default class Sort extends AbstractView {
-  constructor() {
+  constructor(currentSortType) {
     super();
+
+    this._currentSortType = currentSortType;
 
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
   }
 
   getTemplate() {
-    return createSortTemplate();
+    return createSortTemplate(this._currentSortType);
   }
 
   _sortTypeChangeHandler(evt) {

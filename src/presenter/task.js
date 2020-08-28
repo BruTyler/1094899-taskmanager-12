@@ -2,12 +2,7 @@ import TaskView from '../view/task';
 import TaskEditView from '../view/task-edit';
 import {render, replace, remove} from '../utils/render';
 import {extend} from '../utils/common';
-import {RenderPosition} from '../const';
-
-const Mode = {
-  DEFAULT: `DEFAULT`,
-  EDITING: `EDITING`
-};
+import {RenderPosition, UserAction, UpdateType, TaskMode} from '../const';
 
 export default class Task {
   constructor(taskListContainer, changeData, changeMode) {
@@ -17,7 +12,7 @@ export default class Task {
 
     this._taskComponent = null;
     this._taskEditComponent = null;
-    this._mode = Mode.DEFAULT;
+    this._mode = TaskMode.DEFAULT;
 
     this._handleEditClick = this._handleEditClick.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
@@ -45,11 +40,11 @@ export default class Task {
       return;
     }
 
-    if (this._mode === Mode.DEFAULT) {
+    if (this._mode === TaskMode.DEFAULT) {
       replace(this._taskComponent, prevTaskComponent);
     }
 
-    if (this._mode === Mode.EDITING) {
+    if (this._mode === TaskMode.EDITING) {
       replace(this._taskEditComponent, prevTaskEditComponent);
     }
 
@@ -63,7 +58,7 @@ export default class Task {
   }
 
   resetView() {
-    if (this._mode !== Mode.DEFAULT) {
+    if (this._mode !== TaskMode.DEFAULT) {
       this._replaceFormToCard();
     }
   }
@@ -72,13 +67,13 @@ export default class Task {
     replace(this._taskEditComponent, this._taskComponent);
     document.addEventListener(`keydown`, this._escKeyDownHandler);
     this._changeMode();
-    this._mode = Mode.EDITING;
+    this._mode = TaskMode.EDITING;
   }
 
   _replaceFormToCard() {
     replace(this._taskComponent, this._taskEditComponent);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
-    this._mode = Mode.DEFAULT;
+    this._mode = TaskMode.DEFAULT;
   }
 
   _escKeyDownHandler(evt) {
@@ -94,19 +89,32 @@ export default class Task {
   }
 
   _handleFavoriteClick() {
+
     const updatedProperty = {isFavorite: !this._task.isFavorite};
     const updatedTask = extend(this._task, updatedProperty);
-    this._changeData(updatedTask);
+    this._changeData(
+        UserAction.UPDATE_TASK,
+        UpdateType.MINOR,
+        updatedTask
+    );
   }
 
   _handleArchiveClick() {
     const updatedProperty = {isArchive: !this._task.isArchive};
     const updatedTask = extend(this._task, updatedProperty);
-    this._changeData(updatedTask);
+    this._changeData(
+        UserAction.UPDATE_TASK,
+        UpdateType.MINOR,
+        updatedTask
+    );
   }
 
   _handleFormSubmit(task) {
-    this._changeData(task);
+    this._changeData(
+        UserAction.UPDATE_TASK,
+        UpdateType.MINOR,
+        task
+    );
     this._replaceFormToCard();
   }
 }
