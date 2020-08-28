@@ -1,12 +1,13 @@
 import FilterView from '../view/filter';
+import {FilterType} from '../const';
 
 it(`Filter rendering`, () => {
   const filterItems = [
-    {title: `all`, count: 1},
-    {title: `archive`, count: 2}
+    {type: `ALL`, title: `all`, count: 1},
+    {type: `ARCHIVE`, title: `archive`, count: 2}
   ];
-
-  const generatedTree = new FilterView(filterItems).getTemplate();
+  const currentFilterType = FilterType.ALL;
+  const generatedTree = new FilterView(filterItems, currentFilterType).getTemplate();
 
   expect(generatedTree).toMatchSnapshot();
 });

@@ -43,3 +43,12 @@ export enum TaskMode {
   DEFAULT = `DEFAULT`,
   EDITING = `EDITING`
 }
+
+export enum FilterType {
+  ALL = `all`,
+  OVERDUE = `overdue`,
+  TODAY = `today`,
+  FAVORITES = `favorites`,
+  REPEATING = `repeating`,
+  ARCHIVE = `archive`
+};

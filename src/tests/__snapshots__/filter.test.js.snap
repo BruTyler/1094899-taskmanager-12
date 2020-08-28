@@ -7,7 +7,7 @@ exports[`Filter rendering 1`] = `
       id=\\"filter__all\\"
       class=\\"filter__input visually-hidden\\"
       name=\\"filter\\"
-      checked
+      
       
     />
     <label for=\\"filter__all\\" class=\\"filter__label\\">
