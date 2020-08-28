@@ -86,8 +86,8 @@ export default class Board {
         this._renderBoard();
         break;
     }
-
   }
+
   _handleSortTypeChange(sortType) {
     if (this._currenSortType === sortType) {
       return;
@@ -146,25 +146,6 @@ export default class Board {
     this._loadMoreButtonComponent.setClickHandler(this._handleLoadMoreButtonClick);
 
     render(this._boardComponent, this._loadMoreButtonComponent, RenderPosition.BEFOREEND);
-  }
-
-  _clearTaskList() {
-    Object
-      .values(this._taskPresenter)
-      .forEach((presenter) => presenter.destroy());
-
-    this._taskPresenter = {};
-    this._renderedTaskCount = TASK_COUNT_PER_STEP;
-  }
-
-  _renderTaskList() {
-    const taskCount = this._getTasks().length;
-    const tasks = this._getTasks().slice(0, Math.min(taskCount, TASK_COUNT_PER_STEP));
-    this._renderTasks(tasks);
-
-    if (taskCount > TASK_COUNT_PER_STEP) {
-      this._renderLoadMoreButton();
-    }
   }
 
   _clearBoard({resetRenderedTaskCount = false, resetSortType = false} = {}) {

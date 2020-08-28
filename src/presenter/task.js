@@ -2,6 +2,8 @@ import TaskView from '../view/task';
 import TaskEditView from '../view/task-edit';
 import {render, replace, remove} from '../utils/render';
 import {extend} from '../utils/common';
+import {isTaskRepeating} from '../utils/bitmap';
+import {isDatesEqual} from '../utils/task';
 import {RenderPosition, UserAction, UpdateType, TaskMode} from '../const';
 
 export default class Task {
@@ -18,6 +20,7 @@ export default class Task {
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
     this._handleArchiveClick = this._handleArchiveClick.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
+    this._handleDeleteClick = this._handleDeleteClick.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -34,6 +37,7 @@ export default class Task {
     this._taskComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._taskComponent.setArchiveClickHandler(this._handleArchiveClick);
     this._taskEditComponent.setFormSubmitHandler(this._handleFormSubmit);
+    this._taskEditComponent.setDeleteClickHandler(this._handleDeleteClick);
 
     if (prevTaskComponent === null || prevTaskEditComponent === null) {
       render(this._taskListContainer, this._taskComponent, RenderPosition.BEFOREEND);
@@ -109,12 +113,24 @@ export default class Task {
     );
   }
 
-  _handleFormSubmit(task) {
+  _handleFormSubmit(update) {
+    const isMinorUpdate =
+      !isDatesEqual(this._task.dueDate, update.dueDate) ||
+      isTaskRepeating(this._task.repeating) !== isTaskRepeating(update.repeating);
+
     this._changeData(
         UserAction.UPDATE_TASK,
+        isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
+        update
+    );
+    this._replaceFormToCard();
+  }
+
+  _handleDeleteClick(task) {
+    this._changeData(
+        UserAction.DELETE_TASK,
         UpdateType.MINOR,
         task
     );
-    this._replaceFormToCard();
   }
 }

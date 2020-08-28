@@ -8,7 +8,7 @@ export const isTaskExpired = (dueDate: null | Date): boolean => {
 
   const currentDate = new Date();
 
-  return currentDate.getTime() > dueDate.getTime();
+  return moment(currentDate).isAfter(dueDate, `day`);
 };
 
 export const isTaskExpiringToday = (dueDate: null | Date): boolean => {
@@ -18,7 +18,7 @@ export const isTaskExpiringToday = (dueDate: null | Date): boolean => {
 
   const currentDate = new Date();
 
-  return currentDate.toDateString() === dueDate.toDateString();
+  return moment(dueDate).isSame(currentDate, `day`);
 };
 
 export const humanizeTaskDueDate = (dueDate: Date): string => {
@@ -63,4 +63,12 @@ export const sortTaskDown = (taskA: Task, taskB: Task): number => {
   }
 
   return taskB.dueDate.getTime() - taskA.dueDate.getTime();
+};
+
+export const isDatesEqual = (dateA: Date | null, dateB: Date | null): boolean => {
+  if (dateA === null && dateB === null) {
+    return true;
+  }
+
+  return moment(dateA).isSame(dateB, `day`);
 };
