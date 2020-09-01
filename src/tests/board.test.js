@@ -1,6 +1,6 @@
 import BoardPresenter from '../presenter/board';
 import TasksModel from '../model/tasks';
-import {Color} from '../const';
+import {Color, FilterType} from '../const';
 import {createElement} from '../utils/render';
 
 it(`Board-Presenter rendering`, () => {
@@ -20,7 +20,12 @@ it(`Board-Presenter rendering`, () => {
   const tasksModel = new TasksModel();
   tasksModel.setTasks(tasks);
 
-  const boardPresenter = new BoardPresenter(containerElement, tasksModel);
+  const filterModelMock = {
+    getFilter: () => FilterType.ALL,
+    addObserver: () => null
+  };
+
+  const boardPresenter = new BoardPresenter(containerElement, tasksModel, filterModelMock);
   boardPresenter.init();
 
   expect(containerElement).toMatchSnapshot();

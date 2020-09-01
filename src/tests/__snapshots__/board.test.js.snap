@@ -13,7 +13,7 @@ exports[`Board-Presenter rendering 1`] = `
       
     
       <a
-        class="board__filter "
+        class="board__filter board__filter--active"
         data-sort-type="DEFAULT"
         href="#"
       >

@@ -51,4 +51,4 @@ export enum FilterType {
   FAVORITES = `favorites`,
   REPEATING = `repeating`,
   ARCHIVE = `archive`
-};
+}

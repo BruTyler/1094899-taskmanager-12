@@ -7,15 +7,17 @@ import TaskPresenter from './task';
 import {render, remove} from '../utils/render';
 import {RenderPosition, SortType, UpdateType, UserAction} from '../const';
 import {sortTaskUp, sortTaskDown} from '../utils/task';
+import {filter} from '../utils/filter';
 
 const TASK_COUNT_PER_STEP = 8;
 
 export default class Board {
-  constructor(boardContainer, tasksModel) {
+  constructor(boardContainer, tasksModel, filterModel) {
     this._tasksModel = tasksModel;
+    this._filterModel = filterModel;
     this._boardContainer = boardContainer;
     this._renderedTaskCount = TASK_COUNT_PER_STEP;
-    this._currenSortType = SortType.DEFAULT;
+    this._currentSortType = SortType.DEFAULT;
     this._taskPresenter = {};
 
     this._sortComponent = null;
@@ -32,6 +34,7 @@ export default class Board {
     this._handleSortTypeChange = this._handleSortTypeChange.bind(this);
 
     this._tasksModel.addObserver(this._handleModelEvent);
+    this._filterModel.addObserver(this._handleModelEvent);
   }
 
   init() {
@@ -42,14 +45,18 @@ export default class Board {
   }
 
   _getTasks() {
+    const filterType = this._filterModel.getFilter();
+    const tasks = this._tasksModel.getTasks();
+    const filtredTasks = filter[filterType](tasks);
+
     switch (this._currentSortType) {
       case SortType.DATE_UP:
-        return this._tasksModel.getTasks().slice().sort(sortTaskUp);
+        return filtredTasks.sort(sortTaskUp);
       case SortType.DATE_DOWN:
-        return this._tasksModel.getTasks().slice().sort(sortTaskDown);
+        return filtredTasks.sort(sortTaskDown);
     }
 
-    return this._tasksModel.getTasks();
+    return filtredTasks;
   }
 
   _handleModeChange() {
@@ -89,7 +96,7 @@ export default class Board {
   }
 
   _handleSortTypeChange(sortType) {
-    if (this._currenSortType === sortType) {
+    if (this._currentSortType === sortType) {
       return;
     }
 
@@ -102,7 +109,6 @@ export default class Board {
     if (this._sortComponent !== null) {
       this._sortComponent = null;
     }
-
     this._sortComponent = new SortView(this._currentSortType);
     this._sortComponent.setSortTypeChangeHandler(this._handleSortTypeChange);
 
