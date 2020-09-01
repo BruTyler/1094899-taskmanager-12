@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import he from 'he';
 import SmartView from './smart';
 import {Color} from '../const';
 import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
@@ -107,7 +108,7 @@ const createTaskEditTemplate = (data) => {
               class="card__text"
               placeholder="Start typing your text here..."
               name="text"
-            >${description}</textarea>
+            >${he.encode(description)}</textarea>
           </label>
         </div>
         <div class="card__settings">
