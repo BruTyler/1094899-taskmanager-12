@@ -7,8 +7,9 @@ exports[`Filter rendering 1`] = `
       id=\\"filter__all\\"
       class=\\"filter__input visually-hidden\\"
       name=\\"filter\\"
-      checked
       
+      
+      value=\\"ALL\\"
     />
     <label for=\\"filter__all\\" class=\\"filter__label\\">
       all <span class=\\"filter__all-count\\">1</span></label
@@ -19,6 +20,7 @@ exports[`Filter rendering 1`] = `
       name=\\"filter\\"
       
       
+      value=\\"ARCHIVE\\"
     />
     <label for=\\"filter__archive\\" class=\\"filter__label\\">
       archive <span class=\\"filter__archive-count\\">2</span></label
