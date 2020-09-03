@@ -6,6 +6,8 @@ export enum Color {
   PINK = `pink`,
 }
 
+export const COLORS = Object.values(Color);
+
 export enum RenderPosition {
   AFTERBEGIN = `afterbegin`,
   BEFOREEND = `beforeend`

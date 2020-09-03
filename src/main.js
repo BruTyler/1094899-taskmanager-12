@@ -5,7 +5,7 @@ import FilterPresenter from './presenter/filter';
 import TasksModel from './model/tasks';
 import FilterModel from './model/filter';
 import {generateRandomTask} from './mocks/task';
-import {render} from './utils/render';
+import {render, remove} from './utils/render';
 import {RenderPosition, MenuItem, UpdateType, FilterType} from './const';
 
 const TASK_COUNT = 22;
@@ -31,23 +31,26 @@ const handleTaskNewFormClose = () => {
   siteMenuComponent.setMenuItem(MenuItem.TASKS);
 };
 
+let statisticsComponent = null;
+
 const handleSiteMenuClick = (menuItem) => {
   switch (menuItem) {
     case MenuItem.ADD_NEW_TASK:
+      remove(statisticsComponent);
       boardPresenter.destroy();
       filterModel.setFilter(UpdateType.MAJOR, FilterType.ALL);
       boardPresenter.init();
-      // Скрыть статистику
       boardPresenter.createTask(handleTaskNewFormClose);
       siteMenuComponent.getElement().querySelector(`[value=${MenuItem.TASKS}]`).disabled = true;
       break;
     case MenuItem.TASKS:
       boardPresenter.init();
-      // Скрыть статистику
+      remove(statisticsComponent);
       break;
     case MenuItem.STATISTICS:
       boardPresenter.destroy();
-      // Показать статистику
+      statisticsComponent = new StatisticsView(tasksModel.getTasks());
+      render(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
       break;
   }
 };
@@ -55,5 +58,4 @@ const handleSiteMenuClick = (menuItem) => {
 siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
 
 filterPresenter.init();
-// boardPresenter.init();
-render(siteMainElement, new StatisticsView(tasksModel.getTasks()), RenderPosition.BEFOREEND);
+boardPresenter.init();
