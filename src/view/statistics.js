@@ -1,9 +1,21 @@
 import flatpickr from 'flatpickr';
+import Chart from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import SmartView from './smart';
 import {getCurrentDate} from '../utils/task';
+import {countCompletedTaskInDateRange} from '../utils/statistics';
 
-const createStatisticsTemplate = () => {
-  const completedTaskCount = 0;
+const renderColorsChart = (colorsCtx, tasks) => {
+  // Функция для отрисовки графика по цветам
+};
+
+const renderDaysChart = (daysCtx, tasks, dateFrom, dateTo) => {
+  // Функция для отрисовки графика по датам
+};
+
+const createStatisticsTemplate = (data) => {
+  const {tasks, dateFrom, dateTo} = data;
+  const completedTaskCount = countCompletedTaskInDateRange(tasks, dateFrom, dateTo);
 
   return `<section class="statistic container">
     <div class="statistic__line">
