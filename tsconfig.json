@@ -3,7 +3,8 @@
     "rootDir": "./src",
     "outDir": "./public",
     "sourceMap": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "downlevelIteration": true,
   },
   "exclude": [
     "node_modules",

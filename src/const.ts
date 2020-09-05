@@ -6,6 +6,8 @@ export enum Color {
   PINK = `pink`,
 }
 
+export const COLORS = Object.values(Color);
+
 export enum RenderPosition {
   AFTERBEGIN = `afterbegin`,
   BEFOREEND = `beforeend`
@@ -52,3 +54,9 @@ export enum FilterType {
   REPEATING = `repeating`,
   ARCHIVE = `archive`
 }
+
+export const MenuItem = {
+  ADD_NEW_TASK: `ADD_NEW_TASK`,
+  TASKS: `TASKS`,
+  STATISTICS: `STATISTICS`
+};

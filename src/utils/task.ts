@@ -72,3 +72,9 @@ export const isDatesEqual = (dateA: Date | null, dateB: Date | null): boolean =>
 
   return moment(dateA).isSame(dateB, `day`);
 };
+
+export const getCurrentDate = (): Date => {
+  const currentDate = new Date();
+  currentDate.setHours(23, 59, 59, 999);
+  return new Date(currentDate);
+};
