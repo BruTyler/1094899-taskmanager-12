@@ -20,9 +20,7 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 const siteMenuComponent = new SiteMenuView();
 
-render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
-
-const boardPresenter = new BoardPresenter(siteMainElement, tasksModel, filterModel);
+const boardPresenter = new BoardPresenter(siteMainElement, tasksModel, filterModel, api);
 const filterPresenter = new FilterPresenter(siteMainElement, filterModel, tasksModel);
 
 const handleTaskNewFormClose = () => {
@@ -54,15 +52,17 @@ const handleSiteMenuClick = (menuItem) => {
   }
 };
 
-siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
-
 filterPresenter.init();
 boardPresenter.init();
 
 api.getTasks()
   .then((tasks) => {
     tasksModel.setTasks(UpdateType.INIT, tasks);
+    render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
+    siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
   })
   .catch(() => {
     tasksModel.setTasks(UpdateType.INIT, []);
+    render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
+    siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
   });

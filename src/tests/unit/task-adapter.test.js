@@ -15,7 +15,7 @@ const clientTask = {
 };
 
 const serverTask = {
-  id: 0,
+  id: `0`,
   color: Color.BLACK,
   description: `description`,
   due_date: isoDate,

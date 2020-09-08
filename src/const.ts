@@ -39,7 +39,7 @@ export enum UpdateType {
   PATCH = `PATCH`,
   MINOR = `MINOR`,
   MAJOR = `MAJOR`,
-  INIT =  `INIT`,
+  INIT = `INIT`,
 }
 
 export enum TaskMode {

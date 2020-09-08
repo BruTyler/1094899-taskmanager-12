@@ -1,11 +1,11 @@
 import BoardPresenter from '../../presenter/board';
 import TasksModel from '../../model/tasks';
-import {Color, FilterType} from '../../const';
+import {Color, FilterType, UpdateType} from '../../const';
 import {createElement} from '../../utils/render';
 
 it(`Board-Presenter rendering`, () => {
   const task = {
-    id: `123`,
+    id: 123,
     description: `some description`,
     dueDate: new Date(2020, 8, 4),
     repeatingMask: 0,
@@ -18,7 +18,6 @@ it(`Board-Presenter rendering`, () => {
   const containerElement = createElement(`<div id="container-template"></div>`);
 
   const tasksModel = new TasksModel();
-  tasksModel.setTasks(tasks);
 
   const filterModelMock = {
     getFilter: () => FilterType.ALL,
@@ -27,6 +26,7 @@ it(`Board-Presenter rendering`, () => {
 
   const boardPresenter = new BoardPresenter(containerElement, tasksModel, filterModelMock);
   boardPresenter.init();
+  tasksModel.setTasks(UpdateType.INIT, tasks);
 
   expect(containerElement).toMatchSnapshot();
 });
