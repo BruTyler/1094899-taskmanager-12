@@ -5,25 +5,15 @@ import BoardPresenter from './presenter/board';
 import FilterPresenter from './presenter/filter';
 import TasksModel from './model/tasks';
 import FilterModel from './model/filter';
-import {generateRandomTask} from './mocks/task';
 import {render, remove} from './utils/render';
 import {RenderPosition, MenuItem, UpdateType, FilterType} from './const';
 
-const TASK_COUNT = 22;
 const AUTHORIZATION = `Basic hS2sd3dfSwcl1sa2j`;
 const END_POINT = `https://12.ecmascript.pages.academy/task-manager`;
 
-const tasks = new Array(TASK_COUNT).fill().map(generateRandomTask);
 const api = new Api(END_POINT, AUTHORIZATION);
 
-api.getTasks().then((tasks) => {
-  console.log(tasks);
-
-});
-
 const tasksModel = new TasksModel();
-tasksModel.setTasks(tasks);
-
 const filterModel = new FilterModel();
 
 const siteMainElement = document.querySelector(`.main`);
@@ -68,3 +58,11 @@ siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
 
 filterPresenter.init();
 boardPresenter.init();
+
+api.getTasks()
+  .then((tasks) => {
+    tasksModel.setTasks(UpdateType.INIT, tasks);
+  })
+  .catch(() => {
+    tasksModel.setTasks(UpdateType.INIT, []);
+  });

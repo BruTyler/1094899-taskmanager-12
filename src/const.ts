@@ -38,7 +38,8 @@ export enum UserAction {
 export enum UpdateType {
   PATCH = `PATCH`,
   MINOR = `MINOR`,
-  MAJOR = `MAJOR`
+  MAJOR = `MAJOR`,
+  INIT =  `INIT`,
 }
 
 export enum TaskMode {
