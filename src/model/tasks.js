@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 import Observer from '../utils/observer';
+import {convertRepeatingToMask, convertRepeatingToDays} from '../utils/bitmap';
 
 export default class Tasks extends Observer {
   constructor() {
@@ -52,5 +54,33 @@ export default class Tasks extends Observer {
     ];
 
     this._notify(updateType);
+  }
+
+  static adaptToClient(task) {
+    const {id, color, description, due_date, is_archived, is_favorite, repeating_days} = task;
+
+    return {
+      id,
+      color,
+      description,
+      dueDate: due_date !== null ? new Date(due_date) : null,
+      repeatingMask: convertRepeatingToMask(repeating_days),
+      isArchive: is_archived,
+      isFavorite: is_favorite,
+    };
+  }
+
+  static adaptToServer(task) {
+    const {id, color, description, dueDate, isArchive, isFavorite, repeatingMask} = task;
+
+    return {
+      id,
+      color,
+      description,
+      due_date: dueDate instanceof Date ? task.dueDate.toISOString() : null,
+      repeating_days: convertRepeatingToDays(repeatingMask),
+      is_archived: isArchive,
+      is_favorite: isFavorite,
+    };
   }
 }
