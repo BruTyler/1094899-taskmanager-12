@@ -1,7 +1,7 @@
-import BoardPresenter from '../presenter/board';
-import TasksModel from '../model/tasks';
-import {Color, FilterType} from '../const';
-import {createElement} from '../utils/render';
+import BoardPresenter from '../../presenter/board';
+import TasksModel from '../../model/tasks';
+import {Color, FilterType} from '../../const';
+import {createElement} from '../../utils/render';
 
 it(`Board-Presenter rendering`, () => {
   const task = {
