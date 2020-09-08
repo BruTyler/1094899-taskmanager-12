@@ -60,3 +60,15 @@ export const MenuItem = {
   TASKS: `TASKS`,
   STATISTICS: `STATISTICS`
 };
+
+export enum HTTPMethod {
+  GET = `GET`,
+  PUT = `PUT`,
+  POST = `POST`,
+  DELETE = `DELETE`,
+}
+
+export enum SuccessHTTPStatusRange {
+  MIN = 200,
+  MAX = 299,
+}

@@ -50,7 +50,7 @@ exports[`Board-Presenter rendering 1`] = `
       class="board__tasks"
     >
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -198,7 +198,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -346,7 +346,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -494,7 +494,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -642,7 +642,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -790,7 +790,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -938,7 +938,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
@@ -1086,7 +1086,7 @@ exports[`Board-Presenter rendering 1`] = `
     
       </article>
       <article
-        class="card card--black  "
+        class="card card--black card--deadline "
       >
         
       
