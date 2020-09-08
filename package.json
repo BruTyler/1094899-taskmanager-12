@@ -7,11 +7,11 @@
     "eslint": "npm run eslint.js && npm run eslint.ts",
     "eslint.js": "eslint --ext .js src/",
     "eslint.ts": "eslint --config .eslintrc-ts.yml --ext .ts src/",
-    "test": "npm run eslint & npm run test.jest & npm run test.e2e",
+    "test": "npm run eslint && npm run test.jest && npm run test.e2e",
     "build": "webpack",
     "start": "webpack-dev-server --open",
     "test.jest": "jest",
-    "test.e2e": "npm run build & npm-run-all -p -r server.silent test.codeceptjs",
+    "test.e2e": "npm run build && npm-run-all -p -r server.silent test.codeceptjs",
     "test.codeceptjs": "codeceptjs run --steps",
     "coverage": "jest --coverage",
     "server.silent": "http-server -a 127.0.0.1 --port 8082 --silent"
