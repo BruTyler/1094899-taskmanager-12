@@ -60,10 +60,10 @@ export default class Tasks extends Observer {
     const {id, color, description, due_date, is_archived, is_favorite, repeating_days} = task;
 
     return {
-      id,
+      id: Number(id),
       color,
       description,
-      dueDate: due_date !== null ? new Date(due_date) : null,
+      dueDate: due_date !== null ? new Date(due_date) : due_date,
       repeatingMask: convertRepeatingToMask(repeating_days),
       isArchive: is_archived,
       isFavorite: is_favorite,
@@ -71,10 +71,10 @@ export default class Tasks extends Observer {
   }
 
   static adaptToServer(task) {
-    const {id, color, description, dueDate, isArchive, isFavorite, repeatingMask} = task;
+    const {id = null, color, description, dueDate, isArchive, isFavorite, repeatingMask} = task;
 
     return {
-      id,
+      id: id !== null ? String(id) : id,
       color,
       description,
       due_date: dueDate instanceof Date ? task.dueDate.toISOString() : null,

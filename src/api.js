@@ -1,3 +1,4 @@
+import TasksModel from './model/tasks';
 import {HTTPMethod, SuccessHTTPStatusRange} from './const';
 
 export default class Api {
@@ -8,17 +9,19 @@ export default class Api {
 
   getTasks() {
     return this._load({url: `tasks`})
-      .then(Api.toJSON);
+      .then(Api.toJSON)
+      .then((tasks) => tasks.map(TasksModel.adaptToClient));
   }
 
   updateTask(task) {
     return this._load({
       url: `tasks/${task.id}`,
       method: HTTPMethod.PUT,
-      body: JSON.stringify(task),
+      body: JSON.stringify(TasksModel.adaptToServer(task)),
       headers: new Headers({"Content-Type": `application/json`})
     })
-      .then(Api.toJSON);
+      .then(Api.toJSON)
+      .then(TasksModel.adaptToClient);
   }
 
   _load({

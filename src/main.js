@@ -1,3 +1,4 @@
+import Api from './api';
 import SiteMenuView from './view/site-menu';
 import StatisticsView from './view/statistics.js';
 import BoardPresenter from './presenter/board';
@@ -9,8 +10,16 @@ import {render, remove} from './utils/render';
 import {RenderPosition, MenuItem, UpdateType, FilterType} from './const';
 
 const TASK_COUNT = 22;
+const AUTHORIZATION = `Basic hS2sd3dfSwcl1sa2j`;
+const END_POINT = `https://12.ecmascript.pages.academy/task-manager`;
 
 const tasks = new Array(TASK_COUNT).fill().map(generateRandomTask);
+const api = new Api(END_POINT, AUTHORIZATION);
+
+api.getTasks().then((tasks) => {
+  console.log(tasks);
+
+});
 
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasks);

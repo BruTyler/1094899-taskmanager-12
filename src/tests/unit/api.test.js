@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock-jest';
 import Api from '../../api';
+import {Color} from '../../const';
 
 const END_POINT = `http://end-point.mock`;
 const AUTH_KEY = `authorization-mock`;
@@ -17,6 +18,7 @@ describe(`API suit`, () => {
 
   it(`Api should fetch tasks`, async () => {
     const tasksJson = `[{
+      "id": 0,
       "color": "yellow",
       "description": "find money for travel",
       "due_date": "2019-07-19T09:52:05.173Z",
@@ -33,40 +35,42 @@ describe(`API suit`, () => {
       }
     }]`;
 
+    const ethalonTasks = [{
+      id: 0,
+      color: Color.YELLOW,
+      description: `find money for travel`,
+      dueDate: new Date(`2019-07-19T09:52:05.173Z`),
+      isArchive: false,
+      isFavorite: false,
+      repeatingMask: 0
+    }];
+
     const url = END_POINT + `/tasks`;
     fetchMock.get(url, tasksJson);
     const api = new Api(END_POINT, AUTH_KEY);
 
-    const tasks = await api.getTasks();
+    const tasksFromApi = await api.getTasks();
 
-    expect(tasks).toEqual(JSON.parse(tasksJson));
+    expect(tasksFromApi).toEqual(ethalonTasks);
   });
 
   it(`Api should update task`, async () => {
     const taskId = 0;
 
-    const oldTaskJson = `{
-      "id": "${taskId}",
-      "color": "yellow",
-      "description": "find money for travel",
-      "due_date": "2019-07-19T09:52:05.173Z",
-      "is_archived": false,
-      "is_favorite": false,
-      "repeating_days": {
-        "mo": false,
-        "tu": false,
-        "we": false,
-        "th": false,
-        "fr": false,
-        "sa": false,
-        "su": false
-      }
-    }`;
+    const task = {
+      id: taskId,
+      color: Color.BLACK,
+      description: `new description`,
+      dueDate: new Date(`2019-07-19T09:52:05.173Z`),
+      isArchive: true,
+      isFavorite: true,
+      repeatingMask: 127,
+    };
 
-    const updatedTaskJson = `{
+    const taskJson = `{
       "id": "${taskId}",
-      "color": "yellow",
-      "description": "find money for travel",
+      "color": "black",
+      "description": "new description",
       "due_date": "2019-07-19T09:52:05.173Z",
       "is_archived": true,
       "is_favorite": true,
@@ -82,12 +86,12 @@ describe(`API suit`, () => {
     }`;
 
     const url = `${END_POINT}/tasks/${taskId}`;
-    fetchMock.put(url, updatedTaskJson);
+    fetchMock.put(url, taskJson);
     const api = new Api(END_POINT, AUTH_KEY);
 
-    const taskFromApi = await api.updateTask(JSON.parse(oldTaskJson));
+    const taskFromApi = await api.updateTask(task);
 
-    expect(taskFromApi).toEqual(JSON.parse(updatedTaskJson));
+    expect(taskFromApi).toEqual(task);
   });
 });
 
