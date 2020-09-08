@@ -17,3 +17,6 @@ public/bundle.js.map
 
 # отчет о покрытии тестами
 coverage
+
+# отчет end-to-end тестирования
+e2e-output
