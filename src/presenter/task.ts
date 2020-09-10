@@ -4,7 +4,7 @@ import {render, replace, remove} from '../utils/render';
 import {extend} from '../utils/common';
 import {isTaskRepeating} from '../utils/bitmap';
 import {isDatesEqual} from '../utils/task';
-import {RenderPosition, UserAction, UpdateType, TaskMode} from '../const';
+import {RenderPosition, UserAction, UpdateType, TaskMode, EditState} from '../const';
 import {Action, Task as ITask} from '../types';
 import AbstractView from '../view/abstract';
 
@@ -13,7 +13,7 @@ export default class Task {
   private _changeData: Action
   private _changeMode: Action
   private _task: ITask
-  private _taskComponent: TaskView | null
+  private _taskComponent: TaskView | TaskEditView | null
   private _taskEditComponent: TaskEditView | null
   private _mode: TaskMode
 
@@ -59,7 +59,8 @@ export default class Task {
     }
 
     if (this._mode === TaskMode.EDITING) {
-      replace(this._taskEditComponent, prevTaskEditComponent);
+      replace(this._taskComponent, prevTaskEditComponent);
+      this._mode = TaskMode.DEFAULT;
     }
 
     remove(prevTaskComponent);
@@ -74,6 +75,23 @@ export default class Task {
   resetView(): void {
     if (this._mode !== TaskMode.DEFAULT) {
       this._replaceFormToCard();
+    }
+  }
+
+  setViewState(state: EditState): void {
+    switch (state) {
+      case EditState.SAVING:
+        this._taskEditComponent.updateData({
+          isDisabled: true,
+          isSaving: true
+        });
+        break;
+      case EditState.DELETING:
+        this._taskEditComponent.updateData({
+          isDisabled: true,
+          isDeleting: true
+        });
+        break;
     }
   }
 
@@ -126,13 +144,11 @@ export default class Task {
     const isMinorUpdate =
       !isDatesEqual(this._task.dueDate, update.dueDate) ||
       isTaskRepeating(this._task.repeatingMask) !== isTaskRepeating(update.repeatingMask);
-
     this._changeData(
         UserAction.UPDATE_TASK,
         isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
         update
     );
-    this._replaceFormToCard();
   }
 
   _handleDeleteClick(task: ITask): void {

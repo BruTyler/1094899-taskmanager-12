@@ -15,6 +15,7 @@ exports[`TaskEditor rendering 1`] = `
               class=\\"card__text\\"
               placeholder=\\"Start typing your text here...\\"
               name=\\"text\\"
+              
             >some description1</textarea>
           </label>
         </div>
@@ -32,6 +33,7 @@ exports[`TaskEditor rendering 1`] = `
           placeholder=\\"\\"
           name=\\"date\\"
           value=\\"4 September\\"
+          
         />
       </label>
     </fieldset>
@@ -48,6 +50,7 @@ exports[`TaskEditor rendering 1`] = `
             name=\\"repeat\\"
             value=\\"mo\\"
             
+            
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-mo\\"
             >mo</label
@@ -57,6 +60,7 @@ exports[`TaskEditor rendering 1`] = `
             id=\\"repeat-tu\\"
             name=\\"repeat\\"
             value=\\"tu\\"
+            
             
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-tu\\"
@@ -68,6 +72,7 @@ exports[`TaskEditor rendering 1`] = `
             name=\\"repeat\\"
             value=\\"we\\"
             
+            
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-we\\"
             >we</label
@@ -77,6 +82,7 @@ exports[`TaskEditor rendering 1`] = `
             id=\\"repeat-th\\"
             name=\\"repeat\\"
             value=\\"th\\"
+            
             
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-th\\"
@@ -88,6 +94,7 @@ exports[`TaskEditor rendering 1`] = `
             name=\\"repeat\\"
             value=\\"fr\\"
             
+            
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-fr\\"
             >fr</label
@@ -97,6 +104,7 @@ exports[`TaskEditor rendering 1`] = `
             id=\\"repeat-sa\\"
             name=\\"repeat\\"
             value=\\"sa\\"
+            
             
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-sa\\"
@@ -108,6 +116,7 @@ exports[`TaskEditor rendering 1`] = `
             name=\\"repeat\\"
             value=\\"su\\"
             checked
+            
           />
           <label class=\\"card__repeat-day\\" for=\\"repeat-su\\"
             >su</label
@@ -184,8 +193,12 @@ exports[`TaskEditor rendering 1`] = `
           </div>
         </div>
         <div class=\\"card__status-btns\\">
-          <button class=\\"card__save\\" type=\\"submit\\" >save</button>
-          <button class=\\"card__delete\\" type=\\"button\\">delete</button>
+          <button class=\\"card__save\\" type=\\"submit\\" >
+            save
+          </button>
+          <button class=\\"card__delete\\" type=\\"button\\">
+            delete
+          </button>
         </div>
       </div>
     </form>

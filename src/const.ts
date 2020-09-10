@@ -47,6 +47,11 @@ export enum TaskMode {
   EDITING = `EDITING`
 }
 
+export enum EditState {
+  SAVING = `SAVING`,
+  DELETING = `DELETING`,
+}
+
 export enum FilterType {
   ALL = `all`,
   OVERDUE = `overdue`,

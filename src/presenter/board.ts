@@ -7,7 +7,7 @@ import NoTaskView from '../view/no-task';
 import LoadMoreButtonView from '../view/load-more-button';
 import TaskPresenter from './task';
 import {render, remove} from '../utils/render';
-import {RenderPosition, SortType, UpdateType, UserAction} from '../const';
+import {RenderPosition, SortType, UpdateType, UserAction, EditState} from '../const';
 import {sortTaskUp, sortTaskDown} from '../utils/task';
 import {filter} from '../utils/filter';
 import TasksModel from '../model/tasks';
@@ -110,16 +110,19 @@ export default class Board {
   _handleViewAction(actionType: UserAction, updateType: UpdateType, update: Task): void {
     switch (actionType) {
       case UserAction.UPDATE_TASK:
+        this._taskPresenter[update.id].setViewState(EditState.SAVING);
         this._api.updateTask(update).then((response) => {
           this._tasksModel.updateTask(updateType, response);
         });
         break;
       case UserAction.ADD_TASK:
+        this._taskNewPresenter.setSaving();
         this._api.addTask(update).then((response) => {
           this._tasksModel.addTask(updateType, response);
         });
         break;
       case UserAction.DELETE_TASK:
+        this._taskPresenter[update.id].setViewState(EditState.DELETING);
         this._api.deleteTask(update).then(() => {
           this._tasksModel.deleteTask(updateType, update);
         });
