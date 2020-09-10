@@ -28,6 +28,24 @@ export default class Api implements IRemoteStorage {
       .then(TasksModel.adaptToClient);
   }
 
+  addTask(task: Task): Promise<Task> {
+    return this._load({
+      url: `tasks`,
+      method: HTTPMethod.POST,
+      body: JSON.stringify(TasksModel.adaptToServer(task)),
+      headers: new Headers({"Content-Type": `application/json`})
+    })
+      .then(Api.toJSON)
+      .then(TasksModel.adaptToClient);
+  }
+
+  deleteTask(task: Task): Promise<any> {
+    return this._load({
+      url: `tasks/${task.id}`,
+      method: HTTPMethod.DELETE
+    });
+  }
+
   _load(loadData: {
     url: string,
     method?: HTTPMethod,

@@ -1,8 +1,10 @@
 import {Color, UpdateType, FilterType} from './const';
 
 export interface IRemoteStorage {
-  getTasks(): Promise<Task[]>
-  updateTask(task: Task): Promise<Task>
+  getTasks(): Promise<Task[]>;
+  updateTask(task: Task): Promise<Task>;
+  addTask(task: Task): Promise<Task>;
+  deleteTask(task: Task): Promise<any>;
 }
 
 export interface RepeatingDays {

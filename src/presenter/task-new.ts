@@ -1,6 +1,5 @@
 import TaskEditView from '../view/task-edit';
 import AbstractView from '../view/abstract';
-import {generateId} from '../mocks/task';
 import {remove, render} from '../utils/render';
 import {UserAction, UpdateType, RenderPosition} from '../const';
 import {Action, Task} from '../types';
@@ -58,7 +57,7 @@ export default class TaskNew {
     this._changeData(
         UserAction.ADD_TASK,
         UpdateType.MINOR,
-        Object.assign({id: generateId()}, task)
+        task
     );
     this.destroy();
   }

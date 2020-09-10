@@ -15,12 +15,13 @@ Scenario(`Add task`, (I) => {
   I.waitForText(`hello e2e add`, 5, `.card__text`);
 });
 
-// Scenario(`Delete task`, (I) => {
-//   I.amOnPage(END_POINT);
-//   I.see(`hello e2e add`, `.card__text`);
+Scenario(`Delete task`, (I) => {
+  I.amOnPage(END_POINT);
+  I.waitForText(`hello e2e add`, 5, `.card__text`);
 
-//   I.click(`edit`);
-//   I.click(`delete`);
-//   I.dontSee(`hello e2e add`, `.card__text`);
-// });
+  I.click(`edit`);
+  I.click(`delete`);
+  I.wait(2);
+  I.dontSee(`hello e2e add`, `.card__text`);
+});
 
