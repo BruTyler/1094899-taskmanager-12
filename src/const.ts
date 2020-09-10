@@ -50,6 +50,7 @@ export enum TaskMode {
 export enum EditState {
   SAVING = `SAVING`,
   DELETING = `DELETING`,
+  ABORTING = `ABORTING`,
 }
 
 export enum FilterType {

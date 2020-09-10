@@ -79,6 +79,14 @@ export default class Task {
   }
 
   setViewState(state: EditState): void {
+    const resetFormState = () => {
+      this._taskEditComponent.updateData({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false
+      });
+    };
+
     switch (state) {
       case EditState.SAVING:
         this._taskEditComponent.updateData({
@@ -91,6 +99,10 @@ export default class Task {
           isDisabled: true,
           isDeleting: true
         });
+        break;
+      case EditState.ABORTING:
+        this._taskComponent.shake(resetFormState);
+        this._taskEditComponent.shake(resetFormState);
         break;
     }
   }

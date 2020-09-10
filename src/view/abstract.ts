@@ -1,6 +1,8 @@
 import {createElement} from '../utils/render';
 import {Action} from '../types';
 
+const SHAKE_ANIMATION_TIMEOUT = 600;
+
 export default class AbstractView {
   protected _element: HTMLElement | null
   protected _callback: Record<string, Action>
@@ -28,5 +30,13 @@ export default class AbstractView {
 
   removeElement(): void {
     this._element = null;
+  }
+
+  shake(callback: Action): void {
+    this.getElement().style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+    setTimeout(() => {
+      this.getElement().style.animation = ``;
+      callback();
+    }, SHAKE_ANIMATION_TIMEOUT);
   }
 }
