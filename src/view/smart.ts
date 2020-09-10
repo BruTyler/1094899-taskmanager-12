@@ -2,16 +2,14 @@ import AbstractView from './abstract';
 import {extend} from '../utils/common';
 
 export default class Smart extends AbstractView {
+  protected _data: Record<string, any>
+
   constructor() {
     super();
     this._data = {};
   }
 
-  updateData(update, justDataUpdating) {
-    if (!update) {
-      return;
-    }
-
+  updateData(update: Record<string, unknown>, justDataUpdating?: boolean): void {
     this._data = extend(this._data, update);
 
     if (justDataUpdating) {
@@ -21,7 +19,7 @@ export default class Smart extends AbstractView {
     this.updateElement();
   }
 
-  updateElement() {
+  updateElement(): void {
     let prevElement = this.getElement();
     const parent = prevElement.parentElement;
     this.removeElement();
@@ -34,7 +32,7 @@ export default class Smart extends AbstractView {
     this.restoreHandlers();
   }
 
-  restoreHandlers() {
+  restoreHandlers(): void {
     throw new Error(`Abstract method not implemented: resetHandlers`);
   }
 }

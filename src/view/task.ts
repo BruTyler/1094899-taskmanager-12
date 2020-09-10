@@ -2,8 +2,9 @@ import he from 'he';
 import AbstractView from './abstract';
 import {humanizeTaskDueDate, isTaskExpired} from '../utils/task';
 import {isTaskRepeating} from '../utils/bitmap';
+import {Task as ITask, Action} from '../types';
 
-const createTaskTemplate = (task) => {
+const createTaskTemplate = (task: ITask): string => {
   const {description, dueDate, repeatingMask, color, isFavorite, isArchive} = task;
 
   const repeatClass = isTaskRepeating(repeatingMask)
@@ -73,7 +74,9 @@ const createTaskTemplate = (task) => {
 };
 
 export default class Task extends AbstractView {
-  constructor(task) {
+  private _task: ITask
+
+  constructor(task: ITask) {
     super();
     this._task = task;
 
@@ -82,36 +85,36 @@ export default class Task extends AbstractView {
     this._archiveClickHandler = this._archiveClickHandler.bind(this);
   }
 
-  getTemplate() {
+  getTemplate(): string {
     return createTaskTemplate(this._task);
   }
 
-  _editClickHandler(evt) {
+  _editClickHandler(evt: Event): void {
     evt.preventDefault();
     this._callback.editClick();
   }
 
-  _favoriteClickHandler(evt) {
+  _favoriteClickHandler(evt: Event): void {
     evt.preventDefault();
     this._callback.favoriteClick();
   }
 
-  _archiveClickHandler(evt) {
+  _archiveClickHandler(evt: Event): void {
     evt.preventDefault();
     this._callback.archiveClick();
   }
 
-  setEditClickHandler(callback) {
+  setEditClickHandler(callback: Action): void {
     this._callback.editClick = callback;
     this.getElement().querySelector(`.card__btn--edit`).addEventListener(`click`, this._editClickHandler);
   }
 
-  setFavoriteClickHandler(callback) {
+  setFavoriteClickHandler(callback: Action): void {
     this._callback.favoriteClick = callback;
     this.getElement().querySelector(`.card__btn--favorites`).addEventListener(`click`, this._favoriteClickHandler);
   }
 
-  setArchiveClickHandler(callback) {
+  setArchiveClickHandler(callback: Action): void {
     this._callback.archiveClick = callback;
     this.getElement().querySelector(`.card__btn--archive`).addEventListener(`click`, this._archiveClickHandler);
   }

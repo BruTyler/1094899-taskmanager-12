@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
-import Chart from 'chart.js';
+import {Instance as Iflatpickr} from 'flatpickr/dist/types/instance';
+import Chart, {ChartTooltipItem, ChartData} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import SmartView from './smart';
 import {getCurrentDate} from '../utils/task';
@@ -12,8 +13,9 @@ import {
   parseChartDate,
   getDatesInRange
 } from '../utils/statistics';
+import {Task, StatisticData} from '../types';
 
-const renderColorsChart = (colorsCtx, tasks) => {
+const renderColorsChart = (colorsCtx: HTMLCanvasElement, tasks: Task[]): Chart => {
   const taskColors = tasks.map((task) => task.color);
   const uniqColors = makeItemsUniq(taskColors);
   const taskByColorCounts = uniqColors.map((color) => countTasksByColor(tasks, color));
@@ -37,10 +39,10 @@ const renderColorsChart = (colorsCtx, tasks) => {
       },
       tooltips: {
         callbacks: {
-          label: (tooltipItem, data) => {
-            const allData = data.datasets[tooltipItem.datasetIndex].data;
-            const tooltipData = allData[tooltipItem.index];
-            const total = allData.reduce((acc, it) => acc + parseFloat(it));
+          label: (tooltipItem: ChartTooltipItem, data: ChartData): string => {
+            const allData = <number[]> data.datasets[tooltipItem.datasetIndex].data;
+            const tooltipData = <number> allData[tooltipItem.index];
+            const total = allData.reduce((acc: number, it: number) => acc + it);
             const tooltipPercentage = Math.round((tooltipData / total) * 100);
             return `${tooltipData} TASKS — ${tooltipPercentage}%`;
           }
@@ -65,7 +67,7 @@ const renderColorsChart = (colorsCtx, tasks) => {
         labels: {
           boxWidth: 15,
           padding: 25,
-          fontStyle: 500,
+          fontStyle: `normal`,
           fontColor: `#000000`,
           fontSize: 13
         }
@@ -74,7 +76,7 @@ const renderColorsChart = (colorsCtx, tasks) => {
   });
 };
 
-const renderDaysChart = (daysCtx, tasks, dateFrom, dateTo) => {
+const renderDaysChart = (daysCtx: HTMLCanvasElement, tasks: Task[], dateFrom: Date, dateTo: Date): Chart => {
   const dates = getDatesInRange(dateFrom, dateTo);
   const parsedDates = dates.map(parseChartDate);
   const taskInDateRangeCounts = countTasksInDateRange(dates, tasks);
@@ -141,7 +143,7 @@ const renderDaysChart = (daysCtx, tasks, dateFrom, dateTo) => {
   });
 };
 
-const createStatisticsTemplate = (data) => {
+const createStatisticsTemplate = (data: StatisticData): string => {
   const {tasks, dateFrom, dateTo} = data;
   const completedTaskCount = countCompletedTaskInDateRange(tasks, dateFrom, dateTo);
 
@@ -171,10 +173,15 @@ const createStatisticsTemplate = (data) => {
 };
 
 export default class Statistics extends SmartView {
-  constructor(tasks) {
+  private _colorsCart: Chart | null
+  private _daysChart: Chart | null
+  private _datepicker: Iflatpickr | null
+  private _statData: StatisticData
+
+  constructor(tasks: Task[]) {
     super();
 
-    this._data = {
+    this._statData = {
       tasks,
       dateFrom: (() => {
         const daysToFullWeek = 6;
@@ -194,7 +201,7 @@ export default class Statistics extends SmartView {
     this._setDatepicker();
   }
 
-  removeElement() {
+  removeElement(): void {
     super.removeElement();
 
     if (this._datepicker) {
@@ -203,16 +210,16 @@ export default class Statistics extends SmartView {
     }
   }
 
-  getTemplate() {
-    return createStatisticsTemplate(this._data);
+  getTemplate(): string {
+    return createStatisticsTemplate(this._statData);
   }
 
-  restoreHandlers() {
+  restoreHandlers(): void {
     this._setCharts();
     this._setDatepicker();
   }
 
-  _dateChangeHandler([dateFrom, dateTo]) {
+  _dateChangeHandler([dateFrom, dateTo]: Date[]): void {
     if (!dateFrom || !dateTo) {
       return;
     }
@@ -223,7 +230,7 @@ export default class Statistics extends SmartView {
     });
   }
 
-  _setDatepicker() {
+  _setDatepicker(): void {
     if (this._datepicker) {
       this._datepicker.destroy();
       this._datepicker = null;
@@ -234,21 +241,21 @@ export default class Statistics extends SmartView {
         {
           mode: `range`,
           dateFormat: `j F`,
-          defaultDate: [this._data.dateFrom, this._data.dateTo],
+          defaultDate: [this._statData.dateFrom, this._statData.dateTo],
           onChange: this._dateChangeHandler
         }
     );
   }
 
-  _setCharts() {
+  _setCharts(): void {
     if (this._colorsCart !== null || this._daysChart !== null) {
       this._colorsCart = null;
       this._daysChart = null;
     }
 
-    const {tasks, dateFrom, dateTo} = this._data;
-    const colorsCtx = this.getElement().querySelector(`.statistic__colors`);
-    const daysCtx = this.getElement().querySelector(`.statistic__days`);
+    const {tasks, dateFrom, dateTo} = this._statData;
+    const colorsCtx = <HTMLCanvasElement> this.getElement().querySelector(`.statistic__colors`);
+    const daysCtx = <HTMLCanvasElement> this.getElement().querySelector(`.statistic__days`);
 
     this._colorsCart = renderColorsChart(colorsCtx, tasks);
     this._daysChart = renderDaysChart(daysCtx, tasks, dateFrom, dateTo);

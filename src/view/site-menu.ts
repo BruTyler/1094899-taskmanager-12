@@ -1,7 +1,8 @@
 import AbstractView from './abstract';
 import {MenuItem} from '../const';
+import {Action} from '../types';
 
-const createSiteMenuTemplate = () => {
+const createSiteMenuTemplate = (): string => {
   return (
     `<section class="control__btn-wrap">
       <input
@@ -44,22 +45,23 @@ export default class SiteMenu extends AbstractView {
     this._menuClickHandler = this._menuClickHandler.bind(this);
   }
 
-  getTemplate() {
+  getTemplate(): string {
     return createSiteMenuTemplate();
   }
 
-  _menuClickHandler(evt) {
+  _menuClickHandler(evt: Event): void {
     evt.preventDefault();
-    this._callback.menuClick(evt.target.value);
+    const target = <HTMLInputElement> evt.target;
+    this._callback.menuClick(target.value);
   }
 
-  setMenuClickHandler(callback) {
+  setMenuClickHandler(callback: Action): void {
     this._callback.menuClick = callback;
     this.getElement().addEventListener(`change`, this._menuClickHandler);
   }
 
-  setMenuItem(menuItem) {
-    const item = this.getElement().querySelector(`[value=${menuItem}]`);
+  setMenuItem(menuItem: MenuItem): void {
+    const item = <HTMLInputElement> this.getElement().querySelector(`[value=${menuItem}]`);
 
     if (item !== null) {
       item.checked = true;

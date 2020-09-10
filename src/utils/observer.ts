@@ -16,6 +16,7 @@ export default class Observer implements IObservable {
     this._observers = this._observers.filter((existedObserver) => existedObserver !== observer);
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   _notify(updateType: UpdateType, payload?: any): void {
     this._observers.forEach((observer) => observer(updateType, payload));
   }

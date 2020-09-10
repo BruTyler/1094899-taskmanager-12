@@ -1,5 +1,5 @@
 import {isTaskExpired, isTaskExpiringToday} from '../utils/task';
-import {Task, Filter} from '../types';
+import {Task} from '../types';
 import {isTaskRepeating} from '../utils/bitmap';
 
 const taskToFilterMap = {
@@ -19,7 +19,7 @@ const taskToFilterMap = {
   archive: (tasks: Array<Task>) => tasks.filter((task) => task.isArchive).length,
 };
 
-export const generateFilter = (tasks: Array<Task>): Array<Filter> => {
+export const generateFilter = (tasks: Task[]): Record<string, string | number>[] => {
   return Object.entries(taskToFilterMap).map(([filterName, countTasks]) =>
     ({
       title: filterName,

@@ -1,8 +1,8 @@
 import TasksModel from './model/tasks';
 import {HTTPMethod, SuccessHTTPStatusRange} from './const';
-import {Task} from './types';
+import {Task, IRemoteStorage} from './types';
 
-export default class Api {
+export default class Api implements IRemoteStorage {
   private _endPoint: string;
   private _authorization: string;
 

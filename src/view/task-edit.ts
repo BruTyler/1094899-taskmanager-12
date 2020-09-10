@@ -1,15 +1,16 @@
 import flatpickr from 'flatpickr';
+import {Instance as Iflatpickr} from 'flatpickr/dist/types/instance';
 import he from 'he';
 import SmartView from './smart';
 import {Color} from '../const';
 import {isTaskExpired, humanizeTaskDueDate} from '../utils/task';
 import {getRepeatingDayNames, isTaskRepeating, isDayRepeating, updateRepeatingMask} from '../utils/bitmap';
-import {extend} from '../utils/common';
+import {Task, Action} from '../types';
 
 import 'flatpickr/dist/flatpickr.min.css';
 
 const BLANK_TASK = {
-  id: 0,
+  id: null,
   color: Color.BLACK,
   description: ``,
   dueDate: null,
@@ -18,7 +19,7 @@ const BLANK_TASK = {
   isFavorite: false
 };
 
-const createTaskEditDateTemplate = (dueDate, isDueDate) => {
+const createTaskEditDateTemplate = (dueDate: Date | null, isDueDate: boolean): string => {
   return `<button class="card__date-deadline-toggle" type="button">
       date: <span class="card__date-status">${isDueDate ? `yes` : `no`}</span>
     </button>
@@ -36,7 +37,7 @@ const createTaskEditDateTemplate = (dueDate, isDueDate) => {
   `;
 };
 
-const createTaskEditRepeatingTemplate = (repeatingMask, isRepeating) => {
+const createTaskEditRepeatingTemplate = (repeatingMask: number, isRepeating: boolean): string => {
   const repeatingDayNames = getRepeatingDayNames();
 
   return `<button class="card__repeat-toggle" type="button">
@@ -61,7 +62,7 @@ const createTaskEditRepeatingTemplate = (repeatingMask, isRepeating) => {
     : ``}`;
 };
 
-const createTaskEditColorsTemplate = (currentColor) => {
+const createTaskEditColorsTemplate = (currentColor: Color): string => {
   return Object.values(Color).map((color) => `<input
     type="radio"
     id="color-${color}"
@@ -77,7 +78,7 @@ const createTaskEditColorsTemplate = (currentColor) => {
   >`).join(``);
 };
 
-const createTaskEditTemplate = (data) => {
+const createTaskEditTemplate = (data: Record<string, any>) => {
   const {color, description, dueDate, repeatingMask, isDueDate, isRepeating} = data;
 
   const deadlineClassName = isTaskExpired(dueDate)
@@ -135,7 +136,9 @@ const createTaskEditTemplate = (data) => {
 };
 
 export default class TaskEdit extends SmartView {
-  constructor(task = BLANK_TASK) {
+  private _datepicker: Iflatpickr
+
+  constructor(task: Task = BLANK_TASK) {
     super();
     this._data = TaskEdit.parseTaskToData(task);
     this._datepicker = null;
@@ -153,7 +156,7 @@ export default class TaskEdit extends SmartView {
     this._setDatepicker();
   }
 
-  removeElement() {
+  removeElement(): void {
     super.removeElement();
 
     if (this._datepicker) {
@@ -162,24 +165,24 @@ export default class TaskEdit extends SmartView {
     }
   }
 
-  reset(task) {
+  reset(task: Task): void {
     this.updateData(
         TaskEdit.parseTaskToData(task)
     );
   }
 
-  getTemplate() {
+  getTemplate(): string {
     return createTaskEditTemplate(this._data);
   }
 
-  restoreHandlers() {
+  restoreHandlers(): void {
     this._setInnerHandlers();
     this._setDatepicker();
     this.setFormSubmitHandler(this._callback.formSubmit);
     this.setDeleteClickHandler(this._callback.deleteClick);
   }
 
-  _setDatepicker() {
+  _setDatepicker(): void {
     if (this._datepicker) {
       this._datepicker.destroy();
       this._datepicker = null;
@@ -198,7 +201,7 @@ export default class TaskEdit extends SmartView {
     }
   }
 
-  _setInnerHandlers() {
+  _setInnerHandlers(): void {
     this.getElement()
       .querySelector(`.card__date-deadline-toggle`)
       .addEventListener(`click`, this._dueDateToggleHandler);
@@ -219,14 +222,15 @@ export default class TaskEdit extends SmartView {
     }
   }
 
-  _descriptionInputHandler(evt) {
+  _descriptionInputHandler(evt: Event): void {
     evt.preventDefault();
+    const target = <HTMLInputElement> evt.target;
     this.updateData({
-      description: evt.target.value
+      description: target.value
     }, true);
   }
 
-  _dueDateToggleHandler(evt) {
+  _dueDateToggleHandler(evt: Event): void {
     evt.preventDefault();
     this.updateData({
       isDueDate: !this._data.isDueDate,
@@ -234,7 +238,7 @@ export default class TaskEdit extends SmartView {
     });
   }
 
-  _repeatingToggleHandler(evt) {
+  _repeatingToggleHandler(evt: Event): void {
     evt.preventDefault();
     this.updateData({
       isRepeating: !this._data.isRepeating,
@@ -242,7 +246,7 @@ export default class TaskEdit extends SmartView {
     });
   }
 
-  _dueDateChangeHandler([userDate]) {
+  _dueDateChangeHandler([userDate]: Date[]): void {
     userDate.setHours(23, 59, 59, 999);
 
     this.updateData({
@@ -250,42 +254,45 @@ export default class TaskEdit extends SmartView {
     });
   }
 
-  _repeatingChangeHandler(evt) {
+  _repeatingChangeHandler(evt: Event): void {
     evt.preventDefault();
+    const target = <HTMLInputElement> evt.target;
     this.updateData({
-      repeatingMask: updateRepeatingMask(this._data.repeatingMask, evt.target.value)
+      repeatingMask: updateRepeatingMask(this._data.repeatingMask, target.value)
     });
   }
 
-  _colorChangeHandler(evt) {
+  _colorChangeHandler(evt: Event): void {
     evt.preventDefault();
+    const target = <HTMLInputElement> evt.target;
     this.updateData({
-      color: evt.target.value
+      color: target.value
     });
   }
 
-  _formSubmitHandler(evt) {
+  _formSubmitHandler(evt: Event): void {
     evt.preventDefault();
     this._callback.formSubmit(TaskEdit.parseDataToTask(this._data));
   }
 
-  setFormSubmitHandler(callback) {
+  setFormSubmitHandler(callback: Action): void {
     this._callback.formSubmit = callback;
     this.getElement().querySelector(`form`).addEventListener(`submit`, this._formSubmitHandler);
   }
 
-  _formDeleteClickHandler(evt) {
+  _formDeleteClickHandler(evt: Event): void {
     evt.preventDefault();
     this._callback.deleteClick(TaskEdit.parseDataToTask(this._data));
   }
 
-  setDeleteClickHandler(callback) {
+  setDeleteClickHandler(callback: Action): void {
     this._callback.deleteClick = callback;
     this.getElement().querySelector(`.card__delete`).addEventListener(`click`, this._formDeleteClickHandler);
   }
 
-  static parseTaskToData(task) {
-    return extend(
+  static parseTaskToData(task: Task): Record<string, any> {
+    return Object.assign(
+        {},
         task,
         {
           isDueDate: task.dueDate !== null,
@@ -294,7 +301,7 @@ export default class TaskEdit extends SmartView {
     );
   }
 
-  static parseDataToTask(data) {
+  static parseDataToTask(data: Record<string, any>): Task {
     data = Object.assign({}, data);
 
     if (!data.isDueDate) {
@@ -308,6 +315,6 @@ export default class TaskEdit extends SmartView {
     delete data.isDueDate;
     delete data.isRepeating;
 
-    return data;
+    return <Task> data;
   }
 }
