@@ -1,5 +1,5 @@
-import FilterView from '../view/filter';
-import {FilterType} from '../const';
+import FilterView from '../../view/filter';
+import {FilterType} from '../../const';
 
 it(`Filter rendering`, () => {
   const filterItems = [

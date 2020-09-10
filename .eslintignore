@@ -1,3 +1,4 @@
 webpack.config.js
 tsconfig.js
 jest.config.js
+codecept.conf.js

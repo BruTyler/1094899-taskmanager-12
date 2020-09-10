@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TaskEditor rendering 1`] = `
-"<article class=\\"card card--edit card--black  card--repeat\\">
+"<article class=\\"card card--edit card--black card--deadline card--repeat\\">
     <form class=\\"card__form\\" method=\\"get\\">
       <div class=\\"card__inner\\">
         <div class=\\"card__color-bar\\">

@@ -12,5 +12,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     "\\.(css)$": `identity-obj-proxy`,
-  }
+  },
+  coverageDirectory: `../coverage`,
+  modulePathIgnorePatterns: [`<rootDir>/tests/e2e/`]
 };

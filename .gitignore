@@ -14,3 +14,9 @@ node_modules/
 # js bundle
 public/bundle.js
 public/bundle.js.map
+
+# отчет о покрытии тестами
+coverage
+
+# отчет end-to-end тестирования
+e2e-output
