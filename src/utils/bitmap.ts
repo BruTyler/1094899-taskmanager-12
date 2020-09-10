@@ -43,11 +43,18 @@ export const convertRepeatingToMask = (repeatingDays: RepeatingDays): number => 
   return repeatingMask;
 };
 
-export const convertRepeatingToDays = (repeatingMask: number): Record<string, boolean> => {
-  const repeatingDayNames = getRepeatingDayNames();
+export const convertRepeatingToDays = (repeatingMask: number): RepeatingDays => {
+  const repeatingDays = {
+    mo: false,
+    tu: false,
+    we: false,
+    th: false,
+    fr: false,
+    sa: false,
+    su: false
+  };
 
-  const repeatingDays = {};
-  repeatingDayNames.forEach((dayKey) => {
+  Object.keys(repeatingDays).forEach((dayKey) => {
     repeatingDays[dayKey] = isDayRepeating(repeatingMask, dayKey);
   });
 
