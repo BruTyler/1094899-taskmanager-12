@@ -1,8 +1,12 @@
 import {createElement} from '../utils/render';
+import {Action} from '../types';
 
-export default class Abstract {
+export default class AbstractView {
+  protected _element: HTMLElement | null
+  protected _callback: Record<string, Action>
+
   constructor() {
-    if (new.target === Abstract) {
+    if (new.target === AbstractView) {
       throw new Error(`Can't instantiate Abstract, only concrete one.`);
     }
 
@@ -10,11 +14,11 @@ export default class Abstract {
     this._callback = {};
   }
 
-  getTemplate() {
+  getTemplate(): string {
     throw new Error(`Abstract method not implemented: getTemplate`);
   }
 
-  getElement() {
+  getElement(): HTMLElement {
     if (!this._element) {
       this._element = createElement(this.getTemplate());
     }
@@ -22,7 +26,7 @@ export default class Abstract {
     return this._element;
   }
 
-  removeElement() {
+  removeElement(): void {
     this._element = null;
   }
 }

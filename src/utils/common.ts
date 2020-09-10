@@ -45,6 +45,6 @@ export const updateItem = <O extends WithId<number>> (items: O[], update: O): O[
   ];
 };
 
-export const extend = <T extends Record<string, unknown>>(a: T, b: T): T => {
+export const extend = <T extends Record<string, any>>(a: T, b: T): T => {
   return Object.assign({}, a, b);
 };

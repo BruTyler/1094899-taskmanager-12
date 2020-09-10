@@ -1,10 +1,19 @@
 import FilterView from '../view/filter';
+import TasksModel from '../model/tasks';
+import FilterModel from '../model/filter';
 import {render, replace, remove} from '../utils/render';
 import {filter} from '../utils/filter';
 import {FilterType, UpdateType, RenderPosition} from '../const';
+import {Filter as IFilter} from '../types';
 
 export default class Filter {
-  constructor(filterContainer, filterModel, tasksModel) {
+  private _filterContainer: HTMLElement
+  private _filterModel: FilterModel
+  private _tasksModel: TasksModel
+  private _currentFilter: FilterType | null
+  private _filterComponent: FilterView | null
+
+  constructor(filterContainer: HTMLElement, filterModel: FilterModel, tasksModel: TasksModel) {
     this._filterContainer = filterContainer;
     this._filterModel = filterModel;
     this._tasksModel = tasksModel;
@@ -19,7 +28,7 @@ export default class Filter {
     this._filterModel.addObserver(this._handleModelEvent);
   }
 
-  init() {
+  init(): void {
     this._currentFilter = this._filterModel.getFilter();
 
     const filters = this._getFilters();
@@ -37,18 +46,18 @@ export default class Filter {
     remove(prevFilterComponent);
   }
 
-  _handleModelEvent() {
+  _handleModelEvent(): void {
     this.init();
   }
 
-  _handleFilterTypeChange(filterType) {
+  _handleFilterTypeChange(filterType: FilterType): void {
     if (this._currentFilter === filterType) {
       return;
     }
     this._filterModel.setFilter(UpdateType.MAJOR, filterType);
   }
 
-  _getFilters() {
+  _getFilters(): IFilter[] {
     const tasks = this._tasksModel.getTasks();
 
     return [

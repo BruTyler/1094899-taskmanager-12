@@ -1,6 +1,6 @@
 import Api from './api';
 import SiteMenuView from './view/site-menu';
-import StatisticsView from './view/statistics.js';
+import StatisticsView from './view/statistics';
 import BoardPresenter from './presenter/board';
 import FilterPresenter from './presenter/filter';
 import TasksModel from './model/tasks';
@@ -16,21 +16,21 @@ const api = new Api(END_POINT, AUTHORIZATION);
 const tasksModel = new TasksModel();
 const filterModel = new FilterModel();
 
-const siteMainElement = document.querySelector(`.main`);
-const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
+const siteMainElement = <HTMLElement> document.querySelector(`.main`);
+const siteHeaderElement = <HTMLElement> siteMainElement.querySelector(`.main__control`);
 const siteMenuComponent = new SiteMenuView();
 
 const boardPresenter = new BoardPresenter(siteMainElement, tasksModel, filterModel, api);
 const filterPresenter = new FilterPresenter(siteMainElement, filterModel, tasksModel);
 
 const handleTaskNewFormClose = () => {
-  siteMenuComponent.getElement().querySelector(`[value=${MenuItem.TASKS}]`).disabled = false;
+  (<HTMLInputElement> siteMenuComponent.getElement().querySelector(`[value=${MenuItem.TASKS}]`)).disabled = false;
   siteMenuComponent.setMenuItem(MenuItem.TASKS);
 };
 
 let statisticsComponent = null;
 
-const handleSiteMenuClick = (menuItem) => {
+const handleSiteMenuClick = (menuItem: MenuItem): void => {
   switch (menuItem) {
     case MenuItem.ADD_NEW_TASK:
       remove(statisticsComponent);
@@ -38,7 +38,7 @@ const handleSiteMenuClick = (menuItem) => {
       filterModel.setFilter(UpdateType.MAJOR, FilterType.ALL);
       boardPresenter.init();
       boardPresenter.createTask(handleTaskNewFormClose);
-      siteMenuComponent.getElement().querySelector(`[value=${MenuItem.TASKS}]`).disabled = true;
+      (<HTMLInputElement> siteMenuComponent.getElement().querySelector(`[value=${MenuItem.TASKS}]`)).disabled = true;
       break;
     case MenuItem.TASKS:
       boardPresenter.init();

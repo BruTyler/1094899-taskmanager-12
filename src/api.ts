@@ -1,19 +1,23 @@
 import TasksModel from './model/tasks';
 import {HTTPMethod, SuccessHTTPStatusRange} from './const';
+import {Task, IRemoteStorage} from './types';
 
-export default class Api {
-  constructor(endPoint, authorization) {
+export default class Api implements IRemoteStorage {
+  private _endPoint: string;
+  private _authorization: string;
+
+  constructor(endPoint: string, authorization: string) {
     this._endPoint = endPoint;
     this._authorization = authorization;
   }
 
-  getTasks() {
+  getTasks(): Promise<Task[]> {
     return this._load({url: `tasks`})
       .then(Api.toJSON)
       .then((tasks) => tasks.map(TasksModel.adaptToClient));
   }
 
-  updateTask(task) {
+  updateTask(task: Task): Promise<Task> {
     return this._load({
       url: `tasks/${task.id}`,
       method: HTTPMethod.PUT,
@@ -24,12 +28,20 @@ export default class Api {
       .then(TasksModel.adaptToClient);
   }
 
-  _load({
-    url,
-    method = HTTPMethod.GET,
-    body = null,
-    headers = new Headers()
-  }) {
+  _load(loadData: {
+    url: string,
+    method?: HTTPMethod,
+    body?: BodyInit | null,
+    headers?: Headers
+  }): Promise<any> {
+
+    const {
+      url,
+      method = HTTPMethod.GET,
+      body = null,
+      headers = new Headers()
+    } = loadData;
+
     headers.append(`Authorization`, this._authorization);
 
     return fetch(
@@ -40,7 +52,7 @@ export default class Api {
       .catch(Api.catchError);
   }
 
-  static checkStatus(response) {
+  static checkStatus(response: Response): Response {
     if (
       response.status < SuccessHTTPStatusRange.MIN &&
       response.status > SuccessHTTPStatusRange.MAX
@@ -51,11 +63,11 @@ export default class Api {
     return response;
   }
 
-  static toJSON(response) {
+  static toJSON(response: Body): Promise<any> {
     return response.json();
   }
 
-  static catchError(err) {
+  static catchError(err: Error): void {
     throw err;
   }
 }
