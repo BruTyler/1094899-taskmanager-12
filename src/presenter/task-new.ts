@@ -1,10 +1,16 @@
 import TaskEditView from '../view/task-edit';
-import {generateId} from '../mocks/task';
+import AbstractView from '../view/abstract';
 import {remove, render} from '../utils/render';
 import {UserAction, UpdateType, RenderPosition} from '../const';
+import {Action, Task} from '../types';
 
 export default class TaskNew {
-  constructor(taskListContainer, changeData) {
+  private _taskListContainer: HTMLElement | AbstractView
+  private _changeData: Action
+  private _taskEditComponent: TaskEditView | null
+  private _destroyCallback: Action | null
+
+  constructor(taskListContainer: HTMLElement | AbstractView, changeData: Action) {
     this._taskListContainer = taskListContainer;
     this._changeData = changeData;
 
@@ -16,7 +22,7 @@ export default class TaskNew {
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
-  init(callback) {
+  init(callback: Action): void {
     this._destroyCallback = callback;
 
     if (this._taskEditComponent !== null) {
@@ -32,7 +38,7 @@ export default class TaskNew {
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
 
-  destroy() {
+  destroy(): void {
     if (this._taskEditComponent === null) {
       return;
     }
@@ -47,20 +53,38 @@ export default class TaskNew {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
-  _handleFormSubmit(task) {
+  setSaving(): void {
+    this._taskEditComponent.updateData({
+      isDisabled: true,
+      isSaving: true
+    });
+  }
+
+  setAborting(): void {
+    const resetFormState = () => {
+      this._taskEditComponent.updateData({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false
+      });
+    };
+
+    this._taskEditComponent.shake(resetFormState);
+  }
+
+  _handleFormSubmit(task: Task): void {
     this._changeData(
         UserAction.ADD_TASK,
         UpdateType.MINOR,
-        Object.assign({id: generateId()}, task)
+        task
     );
+  }
+
+  _handleDeleteClick(): void {
     this.destroy();
   }
 
-  _handleDeleteClick() {
-    this.destroy();
-  }
-
-  _escKeyDownHandler(evt) {
+  _escKeyDownHandler(evt: KeyboardEvent): void {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       evt.preventDefault();
       this.destroy();

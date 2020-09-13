@@ -28,11 +28,11 @@ export const renderTemplate = (container: HTMLElement | AbstractView, template: 
   container.insertAdjacentHTML(place, template);
 };
 
-export const createElement = (template: string): ChildNode => {
+export const createElement = (template: string): HTMLElement => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
 
-  return newElement.firstChild;
+  return <HTMLElement> newElement.firstChild;
 };
 
 export const replace = (newChild: HTMLElement | AbstractView, oldChild: HTMLElement | AbstractView): void => {

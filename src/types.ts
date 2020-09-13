@@ -1,4 +1,11 @@
-import {Color} from './const';
+import {Color, UpdateType, FilterType} from './const';
+
+export interface IRemoteStorage {
+  getTasks(): Promise<Task[]>;
+  updateTask(task: Task): Promise<Task>;
+  addTask(task: Task): Promise<Task>;
+  deleteTask(task: Task): Promise<any>;
+}
 
 export interface RepeatingDays {
   mo: boolean,
@@ -11,7 +18,7 @@ export interface RepeatingDays {
 }
 
 export interface WithId<K=string | number> {
-  id: K,
+  id: K | null,
 }
 
 export type Task = WithId<number> & {
@@ -23,15 +30,37 @@ export type Task = WithId<number> & {
   isArchive: boolean,
 }
 
+export type TaskServer = WithId<string> & {
+  color: Color,
+  description: string,
+  // eslint-disable-next-line camelcase
+  due_date: string | null,
+  // eslint-disable-next-line camelcase
+  repeating_days: RepeatingDays,
+  // eslint-disable-next-line camelcase
+  is_archived: boolean,
+  // eslint-disable-next-line camelcase
+  is_favorite: boolean,
+}
+
 export interface Filter {
+  type: FilterType,
   title: string,
   count: number,
 }
 
-export type ObserverCb = (event: Event, payload?: Record<string, unknown>) => void;
+export type ObserverCb = (updateType?: UpdateType, payload?: any) => void;
 
 export interface IObservable {
   addObserver: (observer: ObserverCb) => void;
   removeObserver: (observer: ObserverCb) => void;
-  _notify: (event: Event, payload?: Record<string, unknown>) => void;
+  _notify: (updateType: UpdateType, payload?: any) => void;
+}
+
+export type Action = (arg1?: any, arg2?: any, arg3?: any) => void;
+
+export interface StatisticData {
+  tasks: Task[],
+  dateFrom: Date,
+  dateTo: Date
 }

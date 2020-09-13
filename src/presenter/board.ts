@@ -7,14 +7,34 @@ import NoTaskView from '../view/no-task';
 import LoadMoreButtonView from '../view/load-more-button';
 import TaskPresenter from './task';
 import {render, remove} from '../utils/render';
-import {RenderPosition, SortType, UpdateType, UserAction} from '../const';
+import {RenderPosition, SortType, UpdateType, UserAction, EditState} from '../const';
 import {sortTaskUp, sortTaskDown} from '../utils/task';
 import {filter} from '../utils/filter';
+import TasksModel from '../model/tasks';
+import FilterModel from '../model/filter';
+import AbstractView from '../view/abstract';
+import {IRemoteStorage, Action, Task} from '../types';
 
 const TASK_COUNT_PER_STEP = 8;
 
 export default class Board {
-  constructor(boardContainer, tasksModel, filterModel, api) {
+  private _tasksModel: TasksModel
+  private _filterModel: FilterModel
+  private _boardContainer: HTMLElement
+  private _renderedTaskCount: number
+  private _currentSortType: SortType
+  private _taskPresenter: Record<number, TaskPresenter>
+  private _taskNewPresenter: TaskNewPresenter
+  private _isLoading: boolean
+  private _api: IRemoteStorage
+  private _sortComponent: SortView | null
+  private _loadMoreButtonComponent: LoadMoreButtonView | null
+  private _boardComponent: BoardView | null
+  private _taskListComponent: AbstractView
+  private _noTaskComponent: AbstractView
+  private _loadingComponent: AbstractView
+
+  constructor(boardContainer: HTMLElement, tasksModel: TasksModel, filterModel: FilterModel, api: IRemoteStorage) {
     this._tasksModel = tasksModel;
     this._filterModel = filterModel;
     this._boardContainer = boardContainer;
@@ -41,7 +61,7 @@ export default class Board {
     this._taskNewPresenter = new TaskNewPresenter(this._taskListComponent, this._handleViewAction);
   }
 
-  init() {
+  init(): void {
     render(this._boardContainer, this._boardComponent, RenderPosition.BEFOREEND);
     render(this._boardComponent, this._taskListComponent, RenderPosition.BEFOREEND);
 
@@ -51,7 +71,7 @@ export default class Board {
     this._renderBoard();
   }
 
-  destroy() {
+  destroy(): void {
     this._clearBoard({resetRenderedTaskCount: true, resetSortType: true});
 
     remove(this._taskListComponent);
@@ -61,11 +81,11 @@ export default class Board {
     this._filterModel.removeObserver(this._handleModelEvent);
   }
 
-  createTask(callback) {
+  createTask(callback: Action): void {
     this._taskNewPresenter.init(callback);
   }
 
-  _getTasks() {
+  _getTasks(): Task[] {
     const filterType = this._filterModel.getFilter();
     const tasks = this._tasksModel.getTasks();
     const filtredTasks = filter[filterType](tasks);
@@ -80,30 +100,49 @@ export default class Board {
     return filtredTasks;
   }
 
-  _handleModeChange() {
+  _handleModeChange(): void {
     this._taskNewPresenter.destroy();
     Object
       .values(this._taskPresenter)
       .forEach((presenter) => presenter.resetView());
   }
 
-  _handleViewAction(actionType, updateType, update) {
+  _handleViewAction(actionType: UserAction, updateType: UpdateType, update: Task): void {
     switch (actionType) {
       case UserAction.UPDATE_TASK:
-        this._api.updateTask(update).then((response) => {
-          this._tasksModel.updateTask(updateType, response);
-        });
+        this._taskPresenter[update.id].setViewState(EditState.SAVING);
+        this._api.updateTask(update)
+          .then((response) => {
+            this._tasksModel.updateTask(updateType, response);
+          })
+          .catch(() => {
+            this._taskPresenter[update.id].setViewState(EditState.ABORTING);
+          });
         break;
       case UserAction.ADD_TASK:
-        this._tasksModel.addTask(updateType, update);
+        this._taskNewPresenter.setSaving();
+        this._api.addTask(update)
+          .then((response) => {
+            this._tasksModel.addTask(updateType, response);
+          })
+          .catch(() => {
+            this._taskPresenter[update.id].setViewState(EditState.ABORTING);
+          });
         break;
       case UserAction.DELETE_TASK:
-        this._tasksModel.deleteTask(updateType, update);
+        this._taskPresenter[update.id].setViewState(EditState.DELETING);
+        this._api.deleteTask(update)
+          .then(() => {
+            this._tasksModel.deleteTask(updateType, update);
+          })
+          .catch(() => {
+            this._taskPresenter[update.id].setViewState(EditState.ABORTING);
+          });
         break;
     }
   }
 
-  _handleModelEvent(updateType, data) {
+  _handleModelEvent(updateType: UpdateType, data: Task): void {
     switch (updateType) {
       case UpdateType.PATCH:
         this._taskPresenter[data.id].init(data);
@@ -124,7 +163,7 @@ export default class Board {
     }
   }
 
-  _handleSortTypeChange(sortType) {
+  _handleSortTypeChange(sortType: SortType): void {
     if (this._currentSortType === sortType) {
       return;
     }
@@ -134,7 +173,7 @@ export default class Board {
     this._renderBoard();
   }
 
-  _renderSort() {
+  _renderSort(): void {
     if (this._sortComponent !== null) {
       this._sortComponent = null;
     }
@@ -144,25 +183,25 @@ export default class Board {
     render(this._boardComponent, this._sortComponent, RenderPosition.AFTERBEGIN);
   }
 
-  _renderTask(task) {
+  _renderTask(task: Task): void {
     const taskPresenter = new TaskPresenter(this._taskListComponent, this._handleViewAction, this._handleModeChange);
     taskPresenter.init(task);
     this._taskPresenter[task.id] = taskPresenter;
   }
 
-  _renderTasks(tasks) {
+  _renderTasks(tasks: Task[]): void {
     tasks.forEach((task) => this._renderTask(task));
   }
 
-  _renderLoading() {
+  _renderLoading(): void {
     render(this._boardComponent, this._loadingComponent, RenderPosition.AFTERBEGIN);
   }
 
-  _renderNoTasks() {
+  _renderNoTasks(): void {
     render(this._boardComponent, this._noTaskComponent, RenderPosition.AFTERBEGIN);
   }
 
-  _handleLoadMoreButtonClick() {
+  _handleLoadMoreButtonClick(): void {
     const taskCount = this._getTasks().length;
     const newRenderedTaskCount = Math.min(taskCount, this._renderedTaskCount + TASK_COUNT_PER_STEP);
 
@@ -176,7 +215,7 @@ export default class Board {
     }
   }
 
-  _renderLoadMoreButton() {
+  _renderLoadMoreButton(): void {
     if (this._loadMoreButtonComponent !== null) {
       this._loadMoreButtonComponent = null;
     }
@@ -187,7 +226,10 @@ export default class Board {
     render(this._boardComponent, this._loadMoreButtonComponent, RenderPosition.BEFOREEND);
   }
 
-  _clearBoard({resetRenderedTaskCount = false, resetSortType = false} = {}) {
+  _clearBoard(clearSetting?: Record<string, boolean>): void {
+    const resetRenderedTaskCount = clearSetting?.resetRenderedTaskCount || false;
+    const resetSortType = clearSetting?.resetSortType || false;
+
     const taskCount = this._getTasks().length;
 
     this._taskNewPresenter.destroy();
@@ -212,7 +254,7 @@ export default class Board {
     }
   }
 
-  _renderBoard() {
+  _renderBoard(): void {
     if (this._isLoading) {
       this._renderLoading();
       return;

@@ -47,6 +47,12 @@ export enum TaskMode {
   EDITING = `EDITING`
 }
 
+export enum EditState {
+  SAVING = `SAVING`,
+  DELETING = `DELETING`,
+  ABORTING = `ABORTING`,
+}
+
 export enum FilterType {
   ALL = `all`,
   OVERDUE = `overdue`,
@@ -56,11 +62,11 @@ export enum FilterType {
   ARCHIVE = `archive`
 }
 
-export const MenuItem = {
-  ADD_NEW_TASK: `ADD_NEW_TASK`,
-  TASKS: `TASKS`,
-  STATISTICS: `STATISTICS`
-};
+export enum MenuItem {
+  ADD_NEW_TASK = `ADD_NEW_TASK`,
+  TASKS = `TASKS`,
+  STATISTICS = `STATISTICS`
+}
 
 export enum HTTPMethod {
   GET = `GET`,

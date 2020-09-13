@@ -4,10 +4,20 @@ import {render, replace, remove} from '../utils/render';
 import {extend} from '../utils/common';
 import {isTaskRepeating} from '../utils/bitmap';
 import {isDatesEqual} from '../utils/task';
-import {RenderPosition, UserAction, UpdateType, TaskMode} from '../const';
+import {RenderPosition, UserAction, UpdateType, TaskMode, EditState} from '../const';
+import {Action, Task as ITask} from '../types';
+import AbstractView from '../view/abstract';
 
 export default class Task {
-  constructor(taskListContainer, changeData, changeMode) {
+  private _taskListContainer: HTMLElement | AbstractView
+  private _changeData: Action
+  private _changeMode: Action
+  private _task: ITask
+  private _taskComponent: TaskView | TaskEditView | null
+  private _taskEditComponent: TaskEditView | null
+  private _mode: TaskMode
+
+  constructor(taskListContainer: HTMLElement | AbstractView, changeData: Action, changeMode: Action) {
     this._taskListContainer = taskListContainer;
     this._changeData = changeData;
     this._changeMode = changeMode;
@@ -24,7 +34,7 @@ export default class Task {
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
-  init(task) {
+  init(task: ITask): void {
     this._task = task;
 
     const prevTaskComponent = this._taskComponent;
@@ -49,38 +59,68 @@ export default class Task {
     }
 
     if (this._mode === TaskMode.EDITING) {
-      replace(this._taskEditComponent, prevTaskEditComponent);
+      replace(this._taskComponent, prevTaskEditComponent);
+      this._mode = TaskMode.DEFAULT;
     }
 
     remove(prevTaskComponent);
     remove(prevTaskEditComponent);
   }
 
-  destroy() {
+  destroy(): void {
     remove(this._taskComponent);
     remove(this._taskEditComponent);
   }
 
-  resetView() {
+  resetView(): void {
     if (this._mode !== TaskMode.DEFAULT) {
       this._replaceFormToCard();
     }
   }
 
-  _replaceCardToForm() {
+  setViewState(state: EditState): void {
+    const resetFormState = () => {
+      this._taskEditComponent.updateData({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false
+      });
+    };
+
+    switch (state) {
+      case EditState.SAVING:
+        this._taskEditComponent.updateData({
+          isDisabled: true,
+          isSaving: true
+        });
+        break;
+      case EditState.DELETING:
+        this._taskEditComponent.updateData({
+          isDisabled: true,
+          isDeleting: true
+        });
+        break;
+      case EditState.ABORTING:
+        this._taskComponent.shake(resetFormState);
+        this._taskEditComponent.shake(resetFormState);
+        break;
+    }
+  }
+
+  _replaceCardToForm(): void {
     replace(this._taskEditComponent, this._taskComponent);
     document.addEventListener(`keydown`, this._escKeyDownHandler);
     this._changeMode();
     this._mode = TaskMode.EDITING;
   }
 
-  _replaceFormToCard() {
+  _replaceFormToCard(): void {
     replace(this._taskComponent, this._taskEditComponent);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
     this._mode = TaskMode.DEFAULT;
   }
 
-  _escKeyDownHandler(evt) {
+  _escKeyDownHandler(evt: KeyboardEvent): void {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       evt.preventDefault();
       this._taskEditComponent.reset(this._task);
@@ -88,12 +128,11 @@ export default class Task {
     }
   }
 
-  _handleEditClick() {
+  _handleEditClick(): void {
     this._replaceCardToForm();
   }
 
-  _handleFavoriteClick() {
-
+  _handleFavoriteClick(): void {
     const updatedProperty = {isFavorite: !this._task.isFavorite};
     const updatedTask = extend(this._task, updatedProperty);
     this._changeData(
@@ -103,7 +142,7 @@ export default class Task {
     );
   }
 
-  _handleArchiveClick() {
+  _handleArchiveClick(): void {
     const updatedProperty = {isArchive: !this._task.isArchive};
     const updatedTask = extend(this._task, updatedProperty);
     this._changeData(
@@ -113,20 +152,18 @@ export default class Task {
     );
   }
 
-  _handleFormSubmit(update) {
+  _handleFormSubmit(update: ITask): void {
     const isMinorUpdate =
       !isDatesEqual(this._task.dueDate, update.dueDate) ||
-      isTaskRepeating(this._task.repeating) !== isTaskRepeating(update.repeating);
-
+      isTaskRepeating(this._task.repeatingMask) !== isTaskRepeating(update.repeatingMask);
     this._changeData(
         UserAction.UPDATE_TASK,
         isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
         update
     );
-    this._replaceFormToCard();
   }
 
-  _handleDeleteClick(task) {
+  _handleDeleteClick(task: ITask): void {
     this._changeData(
         UserAction.DELETE_TASK,
         UpdateType.MINOR,

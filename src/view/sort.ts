@@ -1,7 +1,8 @@
 import AbstractView from './abstract';
 import {SortType} from '../const';
+import {Action} from '../types';
 
-const createSortTemplate = (currentSortType) => {
+const createSortTemplate = (currentSortType: SortType): string => {
   const sortItemsTemplate = Object
     .values(SortType)
     .map((sortValue) =>
@@ -19,7 +20,9 @@ const createSortTemplate = (currentSortType) => {
 };
 
 export default class Sort extends AbstractView {
-  constructor(currentSortType) {
+  private _currentSortType: SortType
+
+  constructor(currentSortType: SortType) {
     super();
 
     this._currentSortType = currentSortType;
@@ -27,20 +30,22 @@ export default class Sort extends AbstractView {
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
   }
 
-  getTemplate() {
+  getTemplate(): string {
     return createSortTemplate(this._currentSortType);
   }
 
-  _sortTypeChangeHandler(evt) {
-    if (evt.target.tagName !== `A`) {
+  _sortTypeChangeHandler(evt: Event): void {
+    const target = <HTMLButtonElement> evt.target;
+
+    if (target.tagName !== `A`) {
       return;
     }
 
     evt.preventDefault();
-    this._callback.sortTypeChange(evt.target.dataset.sortType);
+    this._callback.sortTypeChange(target.dataset.sortType);
   }
 
-  setSortTypeChangeHandler(callback) {
+  setSortTypeChangeHandler(callback: Action): void {
     this._callback.sortTypeChange = callback;
     this.getElement().addEventListener(`click`, this._sortTypeChangeHandler);
   }

@@ -21,7 +21,7 @@ export const isTaskExpiringToday = (dueDate: null | Date): boolean => {
   return moment(dueDate).isSame(currentDate, `day`);
 };
 
-export const humanizeTaskDueDate = (dueDate: Date): string => {
+export const humanizeTaskDueDate = (dueDate: Date | null): string => {
   if (!(dueDate instanceof Date)) {
     return ``;
   }
