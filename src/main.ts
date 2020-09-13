@@ -1,4 +1,4 @@
-import Api from './api';
+import Api from './api/index';
 import SiteMenuView from './view/site-menu';
 import StatisticsView from './view/statistics';
 import BoardPresenter from './presenter/board';
