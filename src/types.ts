@@ -7,6 +7,11 @@ export interface IRemoteStorage {
   deleteTask(task: Task): Promise<any>;
 }
 
+export interface IBrowserStorage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+}
+
 export interface RepeatingDays {
   mo: boolean,
   tu: boolean,
