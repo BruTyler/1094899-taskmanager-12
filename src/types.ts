@@ -5,6 +5,7 @@ export interface IRemoteStorage {
   updateTask(task: Task): Promise<Task>;
   addTask(task: Task): Promise<Task>;
   deleteTask(task: Task): Promise<any>;
+  sync(data: TaskServer): Promise<any>;
 }
 
 export interface IBrowserStorage {

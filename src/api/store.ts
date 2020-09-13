@@ -1,5 +1,4 @@
-import {IBrowserStorage, Task as ITask} from '../types';
-
+import {IBrowserStorage} from '../types';
 
 export default class Store {
   private _storage: IBrowserStorage
