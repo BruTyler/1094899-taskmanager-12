@@ -46,7 +46,7 @@ export default class Api implements IRemoteStorage {
     });
   }
 
-  sync(data: TaskServer): Promise<any> {
+  sync(data: TaskServer[]): Promise<any> {
     return this._load({
       url: `tasks/sync`,
       method: HTTPMethod.POST,

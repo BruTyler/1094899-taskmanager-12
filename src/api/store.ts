@@ -1,6 +1,6 @@
-import {IBrowserStorage} from '../types';
+import {IBrowserStorage, IClientStore} from '../types';
 
-export default class Store {
+export default class Store implements IClientStore {
   private _storage: IBrowserStorage
   private _storeKey: string
 
