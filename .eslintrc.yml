@@ -7,4 +7,6 @@ env:
   browser: true
   jest: true
 
+parser: 'babel-eslint'
+
 extends: 'htmlacademy/es6'

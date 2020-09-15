@@ -19,7 +19,7 @@ export function generateRandomTask(): Task {
   const dueDate = pickRandomDate();
 
   const task = {
-    id: generateId(),
+    id: generateId().toString(),
     description: pickRandomElement(descriptions),
     dueDate,
     repeatingMask: generateRepeatingDaysMask(dueDate),

@@ -5,6 +5,19 @@ export interface IRemoteStorage {
   updateTask(task: Task): Promise<Task>;
   addTask(task: Task): Promise<Task>;
   deleteTask(task: Task): Promise<any>;
+  sync(data: TaskServer[]): Promise<any>;
+}
+
+export interface IBrowserStorage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+}
+
+export interface IClientStore {
+  getItems(): Record<string, any>
+  setItems(items: Record<string, unknown>): void
+  setItem(key: string, value: unknown): void
+  removeItem(key: string): void
 }
 
 export interface RepeatingDays {
@@ -21,7 +34,7 @@ export interface WithId<K=string | number> {
   id: K | null,
 }
 
-export type Task = WithId<number> & {
+export type Task = WithId<string> & {
   description: string,
   dueDate: Date | null,
   repeatingMask: number,

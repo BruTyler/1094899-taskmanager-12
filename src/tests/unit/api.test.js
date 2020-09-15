@@ -18,7 +18,7 @@ describe(`API suit`, () => {
 
   it(`Api should fetch tasks`, async () => {
     const tasksJson = `[{
-      "id": 0,
+      "id": "0",
       "color": "yellow",
       "description": "find money for travel",
       "due_date": "2019-07-19T09:52:05.173Z",
@@ -36,7 +36,7 @@ describe(`API suit`, () => {
     }]`;
 
     const ethalonTasks = [{
-      id: 0,
+      id: `0`,
       color: Color.YELLOW,
       description: `find money for travel`,
       dueDate: new Date(`2019-07-19T09:52:05.173Z`),
@@ -58,7 +58,7 @@ describe(`API suit`, () => {
     const taskId = 0;
 
     const task = {
-      id: taskId,
+      id: `${taskId}`,
       color: Color.BLACK,
       description: `new description`,
       dueDate: new Date(`2019-07-19T09:52:05.173Z`),

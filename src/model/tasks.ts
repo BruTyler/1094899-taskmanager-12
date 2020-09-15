@@ -66,7 +66,7 @@ export default class Tasks extends Observer {
     const {id, color, description, due_date, is_archived, is_favorite, repeating_days} = task;
 
     return {
-      id: Number(id),
+      id,
       color,
       description,
       dueDate: due_date !== null ? new Date(due_date) : null,
@@ -80,7 +80,7 @@ export default class Tasks extends Observer {
     const {id = null, color, description, dueDate, isArchive, isFavorite, repeatingMask} = task;
 
     return {
-      id: id !== null ? String(id) : null,
+      id: id !== null ? id : null,
       color,
       description,
       due_date: dueDate instanceof Date ? task.dueDate.toISOString() : null,

@@ -5,7 +5,7 @@ import {Color, RepeatingDaysMap} from '../../const';
 const isoDate = `2019-07-19T09:52:05.173Z`;
 
 const clientTask = {
-  id: 0,
+  id: `0`,
   color: Color.BLACK,
   description: `description`,
   dueDate: new Date(isoDate),

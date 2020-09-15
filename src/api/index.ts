@@ -1,6 +1,6 @@
-import TasksModel from './model/tasks';
-import {HTTPMethod, SuccessHTTPStatusRange} from './const';
-import {Task, IRemoteStorage} from './types';
+import TasksModel from '../model/tasks';
+import {HTTPMethod, SuccessHTTPStatusRange} from '../const';
+import {Task, IRemoteStorage, TaskServer} from '../types';
 
 export default class Api implements IRemoteStorage {
   private _endPoint: string;
@@ -44,6 +44,16 @@ export default class Api implements IRemoteStorage {
       url: `tasks/${task.id}`,
       method: HTTPMethod.DELETE
     });
+  }
+
+  sync(data: TaskServer[]): Promise<any> {
+    return this._load({
+      url: `tasks/sync`,
+      method: HTTPMethod.POST,
+      body: JSON.stringify(data),
+      headers: new Headers({"Content-Type": `application/json`})
+    })
+      .then(Api.toJSON);
   }
 
   _load(loadData: {
